@@ -1,0 +1,39 @@
+Strike Showdown
+
+## Create - [HttpPost]
+
+    **User Controller:** 
+
+        - Add User
+        - Login User
+
+    **Match Controller:**
+
+        - Add 1v1 Challenge
+        - Add Practice Session
+
+## Read - [HttpGet]
+
+    **User Controller:**
+
+        - Get User Information
+        - Get User By Most Recent Win
+
+    **Match Controller:**
+
+        - Get Matches by filter (Location, Most Recent, 1v1 Match, 1v1 Session, etc)
+        - Get 1v1 Challenge Information
+        - Get Practice Session Information
+
+
+## Update / Delete
+
+    **User Controller:**
+
+        - Edit User Information
+        - Edit Location
+
+**Match Controller:**
+
+        - Edit Match Information
+        - Edit Sestion Information
