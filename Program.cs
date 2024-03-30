@@ -15,7 +15,7 @@ builder.Services.AddDbContext<DataContext>(Options => Options.UseSqlServer(conne
 
 builder.Services.AddCors(options => options.AddPolicy("StrikePolicy", 
 builder => {
-    builder.WithOrigins("http://localhost:5039")
+    builder.WithOrigins("http://localhost:5039", "https://strikeshowdownbackend.azurewebsites.net", "http://localhost:3000")
     .AllowAnyHeader()
     .AllowAnyMethod();
 }));
