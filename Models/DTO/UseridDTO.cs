@@ -7,6 +7,7 @@ namespace strikeshowdown_backend.Models.DTO
 {
     public class UseridDTO
     {
-        
+        public int UserId { get; set; }
+        public string PublisherName { get; set; }
     }
 }

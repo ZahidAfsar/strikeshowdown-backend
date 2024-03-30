@@ -37,3 +37,9 @@ Strike Showdown
 
         - Edit Match Information
         - Edit Sestion Information
+
+username :
+AdminLogin
+
+password :
+izQv3i5YuPkbJ5Y
