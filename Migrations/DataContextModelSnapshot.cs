@@ -72,6 +72,9 @@ namespace strikeshowdown_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 

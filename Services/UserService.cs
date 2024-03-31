@@ -35,42 +35,32 @@ namespace strikeshowdown_backend.Services
 
                 newUser.ID = UserToAdd.ID;
                 newUser.Username = UserToAdd.Username;
+                newUser.Email = UserToAdd.Email;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
 
-                // add new user to the database
                 _context.Add(newUser);
 
-                // save into database, return of number of entries written into database
                 result = _context.SaveChanges() != 0;
             }
             return result;
         }
-// HashedPassword = H( Salt + Password )
         public PasswordDTO HashPassword(string password){
 
-            // create an instance 
             PasswordDTO newHashPassword = new PasswordDTO();
 
-            // create a byte array 64 byte of salt.
             byte[] SaltByte = new byte[64];
 
-            // this is our randomizer 
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
 
-            // take our SaltByte and make sure it contains no zero's. Making it more secure.
             provider.GetNonZeroBytes(SaltByte);
 
-            // converting our salt into a string
             string salt = Convert.ToBase64String(SaltByte);
 
-            // encode our password with salt into our hash. 10000 times, where 10000 is a common starting point
             Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, SaltByte, 10000);
 
-            // convert the resulting byte array as a string of 256 bytes
             string hash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
 
-            // we can save our hash and salt into our passwordDTO
             newHashPassword.Salt = salt;
             newHashPassword.Hash = hash;
 
@@ -80,14 +70,11 @@ namespace strikeshowdown_backend.Services
 
         // verify users password 
         public bool VerifyUsersPassword(string? password, string? storedHash, string? storedSalt){
-            // encode salt back into the orignial byte array
 
             byte[] SaltBytes = Convert.FromBase64String(storedSalt);
 
-            // repeat process of taking password entered and hashing it again
             Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, SaltBytes, 10000);
 
-            // RFC2898 object, retrieve the 256 btyes, convert those into a string, assign the result to the newHash
             string newHash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
 
             return newHash == storedHash;
@@ -98,44 +85,51 @@ namespace strikeshowdown_backend.Services
           {
             IActionResult Result = Unauthorized();
 
-            // check if user exists 
             if(DoesUserExist(User.Username)){
-                // if true, continue with autentication 
-                // if ture store our user object
 
                 UserModel foundUser = GetUserByUsername(User.Username);
                 
-                // check if password is correct
+
                 if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
                 {
-                    // anyone with this code can access the login
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
 
-                    // sign in credentials
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-                    // generate new token and log user out after 30 mins
                     var tokeOptions = new JwtSecurityToken(
                         issuer: "http://localhost:5000",
                         audience: "http://localhost:5000",
-                        claims: new List<Claim>(), // Claims can be added here if needed
-                        expires: DateTime.Now.AddMinutes(30), // Set token expiration time (e.g., 30 minutes)
-                        signingCredentials: signinCredentials // Set signing credentials
+                        claims: new List<Claim>(), 
+                        expires: DateTime.Now.AddMinutes(30), 
+                        signingCredentials: signinCredentials 
                     );
 
-                    // Generate JWT token as a string
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
 
-                   // return JWT token through http response with status code 200
                     Result = Ok(new { Token = tokenString });
                 }
 
-                // Token:
+            }else{
+                UserModel foundUser = GetUserByEmail(User.Email);
 
-                    // rafawfwtqmadw. = header
-                    // dwayddhyjadlwdloadwfe. = Payload: contains claims such as experation time
-                    // dw9qe2qdhjedh3hbd;'e. = signature encrypts and combines header and payload using secret key
+                 if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
+                {
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
 
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "http://localhost:5000",
+                        audience: "http://localhost:5000",
+                        claims: new List<Claim>(), 
+                        expires: DateTime.Now.AddMinutes(30), 
+                        signingCredentials: signinCredentials 
+                    );
+
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+
+                    Result = Ok(new { Token = tokenString });
+                }
             }
             return Result;
           }
@@ -143,6 +137,11 @@ namespace strikeshowdown_backend.Services
         public UserModel GetUserByUsername(string username)
         {
             return _context.UserInfo.SingleOrDefault(user => user.Username == username);
+        }
+
+        public UserModel GetUserByEmail(string email)
+        {
+            return _context.UserInfo.SingleOrDefault(user => user.Email == email);
         }
 
         public bool UpdateUser(UserModel userToUpdate)
@@ -153,16 +152,12 @@ namespace strikeshowdown_backend.Services
 
         public bool UpdateUsername(int id, string username)
         {
-            // sending over just the id and username
-            // we have to get the object to be updated
             UserModel  foundUser = GetUserById(id);
 
             bool result = false;
 
             if(foundUser != null)
             {
-                // a user was found
-                // update foundUser object
                 foundUser.Username = username;
                 _context.Update<UserModel>(foundUser);
                 result = _context.SaveChanges() != 0;
@@ -177,15 +172,12 @@ namespace strikeshowdown_backend.Services
 
         public bool DeleteUser(string userToDelete)
         {
-            // we are only sending over the username
-            // if username was found, delete user
             UserModel foundUser = GetUserByUsername(userToDelete);
 
             bool result = false;
 
             if(foundUser != null)
             {
-                // user was found
                 _context.Remove<UserModel>(foundUser);
                 result = _context.SaveChanges() != 0;
             }
@@ -196,7 +188,7 @@ namespace strikeshowdown_backend.Services
         public UseridDTO GetUserIdDTObyUsername(string username){
 
             UseridDTO UserInfo = new UseridDTO();
-            // query through database to find the user
+
             UserModel foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == username);
 
             UserInfo.UserId = foundUser.ID;
