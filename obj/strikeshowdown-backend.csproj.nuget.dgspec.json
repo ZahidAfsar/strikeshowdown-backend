@@ -65,6 +65,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "mailslurp": {
+              "target": "Package",
+              "version": "[15.18.5, )"
             }
           },
           "imports": [

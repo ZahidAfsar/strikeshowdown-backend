@@ -79,3 +79,8 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/strikeshowdown-backend.pdb
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/strikeshowdown-backend.genruntimeconfig.cache
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/ref/strikeshowdown-backend.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/JsonSubTypes.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/mailslurp.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Polly.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/RestSharp.dll

@@ -9,6 +9,7 @@ builder.Services.AddScoped<MatchService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<PasswordService>();
 
+
 var connectionString = builder.Configuration.GetConnectionString("StrikeShowdown");
 
 builder.Services.AddDbContext<DataContext>(Options => Options.UseSqlServer(connectionString));
