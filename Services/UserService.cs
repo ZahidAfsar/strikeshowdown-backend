@@ -32,6 +32,7 @@ namespace strikeshowdown_backend.Services
                  UserModel newUser = new UserModel();
 
                 var hashPassword = HashPassword(UserToAdd.Password);
+                var hashAnswers = HashSecurity(UserToAdd.SecurityAnswer, UserToAdd.SecurityAnswerTwo, UserToAdd.SecurityAnswerThree);
 
                 newUser.ID = UserToAdd.ID;
                 newUser.Username = UserToAdd.Username;
@@ -41,9 +42,9 @@ namespace strikeshowdown_backend.Services
                 newUser.SecurityQuestion = UserToAdd.SecurityQuestionTwo;
                 newUser.SecurityQuestionTwo = UserToAdd.SecurityQuestionTwo;
                 newUser.SecurityQuestionThree = UserToAdd.SecurityQuestionThree;
-                newUser.SecurityAnswer = UserToAdd.SecurityAnswer;
-                newUser.SecurityAnswerTwo = UserToAdd.SecurityAnswerTwo;
-                newUser.SecurityAnswerThree = UserToAdd.SecurityAnswerThree;
+                newUser.SecurityAnswer = hashAnswers.Hash;
+                newUser.SecurityAnswerTwo = hashAnswers.HashTwo;
+                newUser.SecurityAnswerThree = hashAnswers.HashThree;
                 newUser.FullName = UserToAdd.FullName;
                 newUser.ProfileImage = UserToAdd.ProfileImage;
                 newUser.Pronouns = UserToAdd.Pronouns;
@@ -84,6 +85,44 @@ namespace strikeshowdown_backend.Services
 
         }
 
+        public SecurityAnswersDTO HashSecurity(string SecurityAnswer, string SecurityAnswerTwo, string SecurityAnswerThree){
+            SecurityAnswersDTO newHashSecurity = new SecurityAnswersDTO();
+
+             byte[] SaltByte = new byte[64];
+             byte[] SaltByteTwo = new byte[64];
+             byte[] SaltByteThree = new byte[64];
+             
+            RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+
+            provider.GetNonZeroBytes(SaltByte);
+            provider.GetNonZeroBytes(SaltByteTwo);
+            provider.GetNonZeroBytes(SaltByteThree);
+
+            string salt = Convert.ToBase64String(SaltByte);
+            string saltTwo = Convert.ToBase64String(SaltByteTwo);
+            string saltThree = Convert.ToBase64String(SaltByteThree);
+
+            Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(SecurityAnswer, SaltByte, 10000);
+            Rfc2898DeriveBytes rfc2898DeriveBytesTwo = new Rfc2898DeriveBytes(SecurityAnswerTwo, SaltByteTwo, 10000);
+            Rfc2898DeriveBytes rfc2898DeriveBytesThree = new Rfc2898DeriveBytes(SecurityAnswerThree, SaltByteThree, 10000);
+
+            string hash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
+            string hashTwo = Convert.ToBase64String(rfc2898DeriveBytesTwo.GetBytes(256));
+            string hashThree = Convert.ToBase64String(rfc2898DeriveBytesThree.GetBytes(256));
+
+            newHashSecurity.Salt = salt;
+            newHashSecurity.Hash = hash;
+
+            newHashSecurity.SaltTwo = saltTwo;
+            newHashSecurity.HashTwo = hashTwo;
+
+            newHashSecurity.SaltThree = saltThree;
+            newHashSecurity.HashThree = hashThree;
+
+            return newHashSecurity;
+
+        }
+
         // verify users password 
         public bool VerifyUsersPassword(string? password, string? storedHash, string? storedSalt){
 
@@ -96,6 +135,19 @@ namespace strikeshowdown_backend.Services
             return newHash == storedHash;
 
         }
+
+        public bool VerifySecurity(string? SecurityAnswer, string? storedHash, string? storedSalt){
+
+            byte[] SaltBytes = Convert.FromBase64String(storedSalt);
+
+            Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(SecurityAnswer, SaltBytes, 10000);
+
+            string newHash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
+
+            return newHash == storedHash;
+
+        }
+
 
           public IActionResult Login(LoginDTO User)
           {
@@ -220,6 +272,11 @@ namespace strikeshowdown_backend.Services
 
             return UserInfo;
         }
+        public UserModel GetSecurity (string UsernameOrEmail)
+        {    
+        return _context.UserInfo.SingleOrDefault(user => user.Username == UsernameOrEmail || user.Username == UsernameOrEmail );
+        }
+
 
     }
 }

@@ -56,6 +56,12 @@ namespace strikeshowdown_backend.Controllers
             return _data.ForgotPassword(UsernameOrEmail, password);
         }
 
+        [HttpGet]
+        [Route("GetSecurity/{UserNameOrEmail}")]
+        public UserModel GetSecurity (string UsernameOrEmail){
+            return _data.GetSecurity(UsernameOrEmail);
+        }
+
         // DeleteUser Endpoint
         [HttpDelete]
         [Route("DeleteUser/{userToDelete}")]
@@ -65,9 +71,10 @@ namespace strikeshowdown_backend.Controllers
 
         [HttpGet]
         [Route("GetUserByUsername/{username}")]
-        public UseridDTO GetUserByUsername(string username){
-            return _data.GetUserIdDTObyUsername(username);
+        public UserModel GetUserByUsername(string username){
+            return _data.GetUserByUsername(username);
         }
+
 
         
 
