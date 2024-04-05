@@ -58,7 +58,7 @@ namespace strikeshowdown_backend.Controllers
 
         [HttpGet]
         [Route("GetSecurity/{UserNameOrEmail}/{SecurityQuestion}/{SecurityAnswer}")]
-        public bool GetSecurity (string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer){
+        public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer){
             return _data.GetSecurity(UsernameOrEmail, SecurityQuestion, SecurityAnswer);
         }
 

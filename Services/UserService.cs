@@ -18,18 +18,22 @@ namespace strikeshowdown_backend.Services
     {
         private readonly DataContext _context;
 
-        public UserService(DataContext context){
+        public UserService(DataContext context)
+        {
             _context = context;
         }
-        public bool DoesUserExist(string Username){
+        public bool DoesUserExist(string Username)
+        {
             return _context.UserInfo.SingleOrDefault(user => user.Username == Username || user.Email == Username) != null;
 
         }
-          public bool AddUser(CreateAccountDTO UserToAdd){
+        public bool AddUser(CreateAccountDTO UserToAdd)
+        {
             bool result = false;
 
-            if(!DoesUserExist(UserToAdd.Username)){
-                 UserModel newUser = new UserModel();
+            if (!DoesUserExist(UserToAdd.Username))
+            {
+                UserModel newUser = new UserModel();
 
                 var hashPassword = HashPassword(UserToAdd.Password);
                 var hashAnswers = HashSecurity(UserToAdd.SecurityAnswer, UserToAdd.SecurityAnswerTwo, UserToAdd.SecurityAnswerThree);
@@ -65,7 +69,8 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public PasswordDTO HashPassword(string password){
+        public PasswordDTO HashPassword(string password)
+        {
 
             PasswordDTO newHashPassword = new PasswordDTO();
 
@@ -88,13 +93,14 @@ namespace strikeshowdown_backend.Services
 
         }
 
-        public SecurityAnswersDTO HashSecurity(string SecurityAnswer, string SecurityAnswerTwo, string SecurityAnswerThree){
+        public SecurityAnswersDTO HashSecurity(string SecurityAnswer, string SecurityAnswerTwo, string SecurityAnswerThree)
+        {
             SecurityAnswersDTO newHashSecurity = new SecurityAnswersDTO();
 
-             byte[] SaltByte = new byte[64];
-             byte[] SaltByteTwo = new byte[64];
-             byte[] SaltByteThree = new byte[64];
-             
+            byte[] SaltByte = new byte[64];
+            byte[] SaltByteTwo = new byte[64];
+            byte[] SaltByteThree = new byte[64];
+
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
 
             provider.GetNonZeroBytes(SaltByte);
@@ -127,7 +133,8 @@ namespace strikeshowdown_backend.Services
         }
 
         // verify users password 
-        public bool VerifyUsersPassword(string? password, string? storedHash, string? storedSalt){
+        public bool VerifyUsersPassword(string? password, string? storedHash, string? storedSalt)
+        {
 
             byte[] SaltBytes = Convert.FromBase64String(storedSalt);
 
@@ -139,30 +146,32 @@ namespace strikeshowdown_backend.Services
 
         }
 
-        public bool VerifySecurity(string? SecurityAnswer, string? storedHash, string? storedSalt){
+        public bool VerifySecurity(string? SecurityAnswer, string? storedHash, string? storedSalt)
+        {
 
             byte[] SaltBytes = Convert.FromBase64String(storedSalt);
-        
+
             Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(SecurityAnswer, SaltBytes, 10000);
-          
+
             string newHash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
-           
+
             return newHash == storedHash;
-         
+
 
         }
-          
 
-          public IActionResult Login(LoginDTO User)
-          {
+
+        public IActionResult Login(LoginDTO User)
+        {
             IActionResult Result = Unauthorized();
 
-            if(DoesUserExist(User.UsernameOrEmail)){
+            if (DoesUserExist(User.UsernameOrEmail))
+            {
 
                 UserModel foundUser = GetUserByUsername(User.UsernameOrEmail);
-                
 
-                if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
+
+                if (VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
                 {
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
 
@@ -171,9 +180,9 @@ namespace strikeshowdown_backend.Services
                     var tokeOptions = new JwtSecurityToken(
                         issuer: "http://localhost:5000",
                         audience: "http://localhost:5000",
-                        claims: new List<Claim>(), 
-                        expires: DateTime.Now.AddMinutes(30), 
-                        signingCredentials: signinCredentials 
+                        claims: new List<Claim>(),
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: signinCredentials
                     );
 
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
@@ -183,12 +192,12 @@ namespace strikeshowdown_backend.Services
 
             }
             return Result;
-          }
+        }
 
 
         public UserModel GetUserByUsername(string username)
         {
-            return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username );
+            return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
 
@@ -200,11 +209,11 @@ namespace strikeshowdown_backend.Services
 
         public bool UpdateUsername(int id, string username)
         {
-            UserModel  foundUser = GetUserById(id);
+            UserModel foundUser = GetUserById(id);
 
             bool result = false;
 
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 foundUser.Username = username;
                 _context.Update<UserModel>(foundUser);
@@ -213,29 +222,30 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public bool ForgotPassword(string UsernameOrEmail, string Password){
-           UserModel foundUser = GetUserByUsername(UsernameOrEmail);
+        public bool ForgotPassword(string UsernameOrEmail, string Password)
+        {
+            UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
-           var password = HashPassword(Password);
+            var password = HashPassword(Password);
 
-           bool result = false;
-           if(foundUser != null)
-           {
-            foundUser.Salt = password.Salt;
-            foundUser.Hash = password.Hash;
-             _context.Update<UserModel>(foundUser);
-            result = _context.SaveChanges() != 0;
-           }
-           return result;
+            bool result = false;
+            if (foundUser != null)
+            {
+                foundUser.Salt = password.Salt;
+                foundUser.Hash = password.Hash;
+                _context.Update<UserModel>(foundUser);
+                result = _context.SaveChanges() != 0;
+            }
+            return result;
         }
 
         public bool UpdateStats(string username, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
         {
-            UserModel  foundUser = GetUserByUsername(username);
+            UserModel foundUser = GetUserByUsername(username);
 
             bool result = false;
 
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 foundUser.Username = username;
                 _context.Update<UserModel>(foundUser);
@@ -255,7 +265,7 @@ namespace strikeshowdown_backend.Services
 
             bool result = false;
 
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 _context.Remove<UserModel>(foundUser);
                 result = _context.SaveChanges() != 0;
@@ -264,7 +274,8 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public UseridDTO GetUserIdDTObyUsername(string username){
+        public UseridDTO GetUserIdDTObyUsername(string username)
+        {
 
             UseridDTO UserInfo = new UseridDTO();
 
@@ -276,34 +287,47 @@ namespace strikeshowdown_backend.Services
 
             return UserInfo;
         }
-        public bool GetSecurity (string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer)
-        {    
-             bool result = false;
+        public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer)
+        {
+            bool result = false;
 
-             UserModel foundUser = GetUserByUsername(UsernameOrEmail);
+            if (DoesUserExist(UsernameOrEmail))
+            {
 
-             if(SecurityQuestion == foundUser.SecurityQuestion){
+                UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
-             if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
-             {
-                result = true; 
-             }
+                return true;
 
-             }else if(SecurityQuestion == foundUser.SecurityQuestionTwo){
+                if (SecurityQuestion == foundUser.SecurityQuestion)
+                {   
+                    return true;
 
-                if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
-             {
-                result = true; 
-             }
+                    // if (VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
+                    // {
+                    //     result = true;
+                    // }
 
-             }else if(SecurityQuestion == foundUser.SecurityQuestionThree)
-             {
-                   if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
-             {
-                result = true; 
-             }
-             }
-             return result;
+                }
+                else if (SecurityQuestion == foundUser.SecurityQuestionTwo)
+                {
+
+                    if (VerifySecurity(SecurityAnswer, foundUser.SecurityHashTwo, foundUser.SecuritySaltTwo))
+                    {
+                        result = true;
+                    }
+
+                }
+                else if (SecurityQuestion == foundUser.SecurityQuestionThree)
+                {
+                    if (VerifySecurity(SecurityAnswer, foundUser.SecurityHashThree, foundUser.SecuritySaltThree))
+                    {
+                        result = true;
+                    }
+
+                }
+
+            }
+            return result;
         }
 
 
