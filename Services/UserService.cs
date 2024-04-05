@@ -21,9 +21,9 @@ namespace strikeshowdown_backend.Services
         public UserService(DataContext context){
             _context = context;
         }
-
         public bool DoesUserExist(string Username){
             return _context.UserInfo.SingleOrDefault(user => user.Username == Username) != null;
+
         }
           public bool AddUser(CreateAccountDTO UserToAdd){
             bool result = false;
@@ -38,6 +38,21 @@ namespace strikeshowdown_backend.Services
                 newUser.Email = UserToAdd.Email;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
+                newUser.SecurityQuestion = UserToAdd.SecurityQuestionTwo;
+                newUser.SecurityQuestionTwo = UserToAdd.SecurityQuestionTwo;
+                newUser.SecurityQuestionThree = UserToAdd.SecurityQuestionThree;
+                newUser.SecurityAnswer = UserToAdd.SecurityAnswer;
+                newUser.SecurityAnswerTwo = UserToAdd.SecurityAnswerTwo;
+                newUser.SecurityAnswerThree = UserToAdd.SecurityAnswerThree;
+                newUser.FullName = UserToAdd.FullName;
+                newUser.ProfileImage = UserToAdd.ProfileImage;
+                newUser.Pronouns = UserToAdd.Pronouns;
+                newUser.Wins = UserToAdd.Wins;
+                newUser.Loses = UserToAdd.Loses;
+                newUser.Style = UserToAdd.Style;
+                newUser.MainCenter = UserToAdd.MainCenter;
+                newUser.Average = UserToAdd.Average;
+                newUser.Earnings = UserToAdd.Earnings;
 
                 _context.Add(newUser);
 
@@ -45,6 +60,7 @@ namespace strikeshowdown_backend.Services
             }
             return result;
         }
+
         public PasswordDTO HashPassword(string password){
 
             PasswordDTO newHashPassword = new PasswordDTO();
@@ -85,9 +101,9 @@ namespace strikeshowdown_backend.Services
           {
             IActionResult Result = Unauthorized();
 
-            if(DoesUserExist(User.Username)){
+            if(DoesUserExist(User.UsernameOrEmail)){
 
-                UserModel foundUser = GetUserByUsername(User.Username);
+                UserModel foundUser = GetUserByUsername(User.UsernameOrEmail);
                 
 
                 if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
@@ -110,39 +126,36 @@ namespace strikeshowdown_backend.Services
                 }
 
             }else{
-                UserModel foundUser = GetUserByEmail(User.Email);
+                // UserModel foundUser = GetUserByEmail(User.Email);
 
-                 if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
-                {
-                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                //  if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
+                // {
+                //     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
 
-                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                //     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-                    var tokeOptions = new JwtSecurityToken(
-                        issuer: "http://localhost:5000",
-                        audience: "http://localhost:5000",
-                        claims: new List<Claim>(), 
-                        expires: DateTime.Now.AddMinutes(30), 
-                        signingCredentials: signinCredentials 
-                    );
+                //     var tokeOptions = new JwtSecurityToken(
+                //         issuer: "http://localhost:5000",
+                //         audience: "http://localhost:5000",
+                //         claims: new List<Claim>(), 
+                //         expires: DateTime.Now.AddMinutes(30), 
+                //         signingCredentials: signinCredentials 
+                //     );
 
-                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                //     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
 
-                    Result = Ok(new { Token = tokenString });
-                }
+                //     Result = Ok(new { Token = tokenString });
+                // }
             }
             return Result;
           }
 
+
         public UserModel GetUserByUsername(string username)
         {
-            return _context.UserInfo.SingleOrDefault(user => user.Username == username);
+            return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username );
         }
 
-        public UserModel GetUserByEmail(string email)
-        {
-            return _context.UserInfo.SingleOrDefault(user => user.Email == email);
-        }
 
         public bool UpdateUser(UserModel userToUpdate)
         {
@@ -153,6 +166,21 @@ namespace strikeshowdown_backend.Services
         public bool UpdateUsername(int id, string username)
         {
             UserModel  foundUser = GetUserById(id);
+
+            bool result = false;
+
+            if(foundUser != null)
+            {
+                foundUser.Username = username;
+                _context.Update<UserModel>(foundUser);
+                result = _context.SaveChanges() != 0;
+            }
+            return result;
+        }
+
+        public bool UpdateStats(string username, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
+        {
+            UserModel  foundUser = GetUserByUsername(username);
 
             bool result = false;
 

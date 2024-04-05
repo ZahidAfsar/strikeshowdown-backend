@@ -11,6 +11,8 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/strikeshowdown-backend.pdb
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Azure.Core.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Azure.Identity.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/JsonSubTypes.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/mailslurp.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.AspNetCore.OpenApi.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.Data.SqlClient.dll
@@ -29,6 +31,9 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.OpenApi.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.SqlServer.Server.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Microsoft.Win32.SystemEvents.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Newtonsoft.Json.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Polly.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/RestSharp.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Swashbuckle.AspNetCore.Swagger.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Release/net7.0/publish/Swashbuckle.AspNetCore.SwaggerUI.dll

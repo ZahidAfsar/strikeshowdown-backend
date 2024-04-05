@@ -41,7 +41,22 @@ namespace strikeshowdown_backend.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityQuestion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityQuestionTwo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityQuestionThree = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityAnswer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityAnswerTwo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityAnswerThree = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pronouns = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Wins = table.Column<int>(type: "int", nullable: false),
+                    Loses = table.Column<int>(type: "int", nullable: false),
+                    Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Average = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

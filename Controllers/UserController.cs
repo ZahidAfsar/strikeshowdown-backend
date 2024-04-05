@@ -44,6 +44,12 @@ namespace strikeshowdown_backend.Controllers
             return _data.UpdateUsername(id, username);
         }
 
+        [HttpPut]
+        [Route("UpdateStats/{username}/{FullName}/{ProfileImage}/{Wins}/{Loses}/{Style}/{Average}/{MainCenter}/Earnings")]
+        public bool UpdateStats(string username, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings){
+            return _data.UpdateStats(username, FullName, Pronouns, ProfileImage, Wins, Loses, Style, Average, MainCenter, Earnings);
+        }
+
         // DeleteUser Endpoint
         [HttpDelete]
         [Route("DeleteUser/{userToDelete}")]

@@ -13,6 +13,8 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Azure.Core.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Azure.Identity.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Humanizer.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/JsonSubTypes.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/mailslurp.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Microsoft.Data.SqlClient.dll
@@ -34,6 +36,9 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Microsoft.SqlServer.Server.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Microsoft.Win32.SystemEvents.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Mono.TextTemplating.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Polly.dll
+/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/RestSharp.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -79,8 +84,3 @@
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/strikeshowdown-backend.pdb
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/strikeshowdown-backend.genruntimeconfig.cache
 /Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/Debug/net7.0/ref/strikeshowdown-backend.dll
-/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/JsonSubTypes.dll
-/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/mailslurp.dll
-/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Newtonsoft.Json.dll
-/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/Polly.dll
-/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/bin/Debug/net7.0/RestSharp.dll
