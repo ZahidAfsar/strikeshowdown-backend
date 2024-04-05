@@ -50,6 +50,12 @@ namespace strikeshowdown_backend.Controllers
             return _data.UpdateStats(username, FullName, Pronouns, ProfileImage, Wins, Loses, Style, Average, MainCenter, Earnings);
         }
 
+        [HttpPut]
+        [Route("ForgotPassword/{UsernameOrEmail}/{password}")]
+        public bool ForgotPassword(string UsernameOrEmail, string password){
+            return _data.ForgotPassword(UsernameOrEmail, password);
+        }
+
         // DeleteUser Endpoint
         [HttpDelete]
         [Route("DeleteUser/{userToDelete}")]
@@ -63,6 +69,7 @@ namespace strikeshowdown_backend.Controllers
             return _data.GetUserIdDTObyUsername(username);
         }
 
+        
 
     }
 }

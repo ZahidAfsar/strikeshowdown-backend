@@ -22,7 +22,7 @@ namespace strikeshowdown_backend.Services
             _context = context;
         }
         public bool DoesUserExist(string Username){
-            return _context.UserInfo.SingleOrDefault(user => user.Username == Username) != null;
+            return _context.UserInfo.SingleOrDefault(user => user.Username == Username || user.Email == Username) != null;
 
         }
           public bool AddUser(CreateAccountDTO UserToAdd){
@@ -125,27 +125,6 @@ namespace strikeshowdown_backend.Services
                     Result = Ok(new { Token = tokenString });
                 }
 
-            }else{
-                // UserModel foundUser = GetUserByEmail(User.Email);
-
-                //  if(VerifyUsersPassword(User.Password, foundUser.Hash, foundUser.Salt))
-                // {
-                //     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-
-                //     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-                //     var tokeOptions = new JwtSecurityToken(
-                //         issuer: "http://localhost:5000",
-                //         audience: "http://localhost:5000",
-                //         claims: new List<Claim>(), 
-                //         expires: DateTime.Now.AddMinutes(30), 
-                //         signingCredentials: signinCredentials 
-                //     );
-
-                //     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-
-                //     Result = Ok(new { Token = tokenString });
-                // }
             }
             return Result;
           }
@@ -176,6 +155,22 @@ namespace strikeshowdown_backend.Services
                 result = _context.SaveChanges() != 0;
             }
             return result;
+        }
+
+        public bool ForgotPassword(string UsernameOrEmail, string Password){
+           UserModel foundUser = GetUserByUsername(UsernameOrEmail);
+
+           var password = HashPassword(Password);
+
+           bool result = false;
+           if(foundUser != null)
+           {
+            foundUser.Salt = password.Salt;
+            foundUser.Hash = password.Hash;
+             _context.Update<UserModel>(foundUser);
+            result = _context.SaveChanges() != 0;
+           }
+           return result;
         }
 
         public bool UpdateStats(string username, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
