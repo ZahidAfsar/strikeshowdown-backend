@@ -22,9 +22,9 @@ namespace strikeshowdown_backend.Services
         {
             _context = context;
         }
-        public bool DoesUserExist(string Username)
+        public bool DoesUserExist(string username)
         {
-            return _context.UserInfo.SingleOrDefault(user => user.Username == Username || user.Email == Username) != null;
+            return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username) != null;
 
         }
         public bool AddUser(CreateAccountDTO UserToAdd)
@@ -43,7 +43,7 @@ namespace strikeshowdown_backend.Services
                 newUser.Email = UserToAdd.Email;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
-                newUser.SecurityQuestion = UserToAdd.SecurityQuestionTwo;
+                newUser.SecurityQuestion = UserToAdd.SecurityQuestion;
                 newUser.SecurityQuestionTwo = UserToAdd.SecurityQuestionTwo;
                 newUser.SecurityQuestionThree = UserToAdd.SecurityQuestionThree;
                 newUser.SecuritySalt = hashAnswers.Salt;
@@ -296,16 +296,12 @@ namespace strikeshowdown_backend.Services
 
                 UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
-                return true;
-
                 if (SecurityQuestion == foundUser.SecurityQuestion)
                 {   
-                    return true;
-
-                    // if (VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
-                    // {
-                    //     result = true;
-                    // }
+                    if (VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
+                    {
+                        return true;
+                    }
 
                 }
                 else if (SecurityQuestion == foundUser.SecurityQuestionTwo)
@@ -313,7 +309,7 @@ namespace strikeshowdown_backend.Services
 
                     if (VerifySecurity(SecurityAnswer, foundUser.SecurityHashTwo, foundUser.SecuritySaltTwo))
                     {
-                        result = true;
+                        return true;
                     }
 
                 }
@@ -321,7 +317,7 @@ namespace strikeshowdown_backend.Services
                 {
                     if (VerifySecurity(SecurityAnswer, foundUser.SecurityHashThree, foundUser.SecuritySaltThree))
                     {
-                        result = true;
+                        return true;
                     }
 
                 }
