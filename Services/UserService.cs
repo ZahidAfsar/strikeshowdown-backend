@@ -42,9 +42,12 @@ namespace strikeshowdown_backend.Services
                 newUser.SecurityQuestion = UserToAdd.SecurityQuestionTwo;
                 newUser.SecurityQuestionTwo = UserToAdd.SecurityQuestionTwo;
                 newUser.SecurityQuestionThree = UserToAdd.SecurityQuestionThree;
-                newUser.SecurityAnswer = hashAnswers.Hash;
-                newUser.SecurityAnswerTwo = hashAnswers.HashTwo;
-                newUser.SecurityAnswerThree = hashAnswers.HashThree;
+                newUser.SecuritySalt = hashAnswers.Salt;
+                newUser.SecurityHash = hashAnswers.Hash;
+                newUser.SecuritySaltTwo = hashAnswers.SaltTwo;
+                newUser.SecurityHashTwo = hashAnswers.HashTwo;
+                newUser.SecuritySaltThree = hashAnswers.SaltThree;
+                newUser.SecurityHashThree = hashAnswers.HashThree;
                 newUser.FullName = UserToAdd.FullName;
                 newUser.ProfileImage = UserToAdd.ProfileImage;
                 newUser.Pronouns = UserToAdd.Pronouns;
@@ -139,15 +142,16 @@ namespace strikeshowdown_backend.Services
         public bool VerifySecurity(string? SecurityAnswer, string? storedHash, string? storedSalt){
 
             byte[] SaltBytes = Convert.FromBase64String(storedSalt);
-
+        
             Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(SecurityAnswer, SaltBytes, 10000);
-
+          
             string newHash = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
-
+           
             return newHash == storedHash;
+         
 
         }
-
+          
 
           public IActionResult Login(LoginDTO User)
           {
@@ -272,9 +276,34 @@ namespace strikeshowdown_backend.Services
 
             return UserInfo;
         }
-        public UserModel GetSecurity (string UsernameOrEmail)
+        public bool GetSecurity (string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer)
         {    
-        return _context.UserInfo.SingleOrDefault(user => user.Username == UsernameOrEmail || user.Username == UsernameOrEmail );
+             bool result = false;
+
+             UserModel foundUser = GetUserByUsername(UsernameOrEmail);
+
+             if(SecurityQuestion == foundUser.SecurityQuestion){
+
+             if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
+             {
+                result = true; 
+             }
+
+             }else if(SecurityQuestion == foundUser.SecurityQuestionTwo){
+
+                if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
+             {
+                result = true; 
+             }
+
+             }else if(SecurityQuestion == foundUser.SecurityQuestionThree)
+             {
+                   if(VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
+             {
+                result = true; 
+             }
+             }
+             return result;
         }
 
 

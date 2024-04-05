@@ -15,9 +15,12 @@ namespace strikeshowdown_backend.Models
         public string? SecurityQuestion { get; set; }
         public string? SecurityQuestionTwo { get; set; }
         public string? SecurityQuestionThree { get; set; }
-        public string? SecurityAnswer { get; set; }
-        public string? SecurityAnswerTwo { get; set; }
-        public string? SecurityAnswerThree { get; set; }
+        public string? SecuritySalt { get; set; }
+        public string? SecuritySaltTwo { get; set; }
+        public string? SecuritySaltThree { get; set; }
+        public string? SecurityHash { get; set; }
+        public string? SecurityHashTwo{ get; set; }
+        public string? SecurityHashThree { get; set; }
         public string FullName { get; set; } = "N/A";
         public string ProfileImage { get; set; } = "N/A";
         public string Pronouns { get; set; } = "N/A";

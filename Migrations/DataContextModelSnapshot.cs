@@ -108,13 +108,13 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityAnswer")
+                    b.Property<string>("SecurityHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityAnswerThree")
+                    b.Property<string>("SecurityHashThree")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityAnswerTwo")
+                    b.Property<string>("SecurityHashTwo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityQuestion")
@@ -124,6 +124,15 @@ namespace strikeshowdown_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityQuestionTwo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecuritySalt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecuritySaltThree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecuritySaltTwo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Style")
