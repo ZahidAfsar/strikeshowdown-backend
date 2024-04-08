@@ -200,7 +200,6 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
-
         public bool UpdateUser(UserModel userToUpdate)
         {
             _context.Update<UserModel>(userToUpdate);
@@ -239,15 +238,16 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public bool UpdateStats(string username, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
+        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
         {
-            UserModel foundUser = GetUserByUsername(username);
+            UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
             bool result = false;
 
             if (foundUser != null)
             {
                 foundUser.Username = username;
+                foundUser.Email = Email;
                 foundUser.FullName = FullName;
                 foundUser.Pronouns = Pronouns;
                 foundUser.ProfileImage = ProfileImage;
@@ -305,7 +305,7 @@ namespace strikeshowdown_backend.Services
                 UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
                 if (SecurityQuestion == foundUser.SecurityQuestion)
-                {   
+                {
                     if (VerifySecurity(SecurityAnswer, foundUser.SecurityHash, foundUser.SecuritySalt))
                     {
                         return true;
