@@ -248,6 +248,14 @@ namespace strikeshowdown_backend.Services
             if (foundUser != null)
             {
                 foundUser.Username = username;
+                foundUser.FullName = FullName;
+                foundUser.Pronouns = Pronouns;
+                foundUser.ProfileImage = ProfileImage;
+                foundUser.Wins = Wins;
+                foundUser.Loses = Loses;
+                foundUser.Style = Average;
+                foundUser.MainCenter = MainCenter;
+                foundUser.Earnings = Earnings;
                 _context.Update<UserModel>(foundUser);
                 result = _context.SaveChanges() != 0;
             }
