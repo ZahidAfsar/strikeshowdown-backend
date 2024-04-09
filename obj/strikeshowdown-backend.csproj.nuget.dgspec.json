@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jaykh\\OneDrive\\Desktop\\CodeStack Academy\\Git repo\\strikeshowdown-backend\\strikeshowdown-backend.csproj": {}
+    "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jaykh\\OneDrive\\Desktop\\CodeStack Academy\\Git repo\\strikeshowdown-backend\\strikeshowdown-backend.csproj": {
+    "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jaykh\\OneDrive\\Desktop\\CodeStack Academy\\Git repo\\strikeshowdown-backend\\strikeshowdown-backend.csproj",
+        "projectUniqueName": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj",
         "projectName": "strikeshowdown-backend",
-        "projectPath": "C:\\Users\\jaykh\\OneDrive\\Desktop\\CodeStack Academy\\Git repo\\strikeshowdown-backend\\strikeshowdown-backend.csproj",
-        "packagesPath": "C:\\Users\\jaykh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jaykh\\OneDrive\\Desktop\\CodeStack Academy\\Git repo\\strikeshowdown-backend\\obj\\",
+        "projectPath": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj",
+        "packagesPath": "/Users/zahidafsar/.nuget/packages/",
+        "outputPath": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jaykh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/zahidafsar/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -90,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
         }
       }
     }
