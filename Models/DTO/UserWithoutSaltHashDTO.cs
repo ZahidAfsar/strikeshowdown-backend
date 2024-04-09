@@ -7,6 +7,7 @@ namespace strikeshowdown_backend.Models.DTO
 {
     public class UserWithoutSaltHashDTO
     {
+
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? SecurityQuestion { get; set; }
@@ -21,5 +22,6 @@ namespace strikeshowdown_backend.Models.DTO
         public string MainCenter { get; set; } = "N/A";
         public string Average { get; set; } = "N/A";
         public string Earnings { get; set; } = "N/A";
+        
     }
 }

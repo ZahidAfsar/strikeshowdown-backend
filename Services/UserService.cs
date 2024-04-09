@@ -203,6 +203,7 @@ namespace strikeshowdown_backend.Services
         public UserWithoutSaltHashDTO GetUserByUsernameOrEmail(string usernameOrEmail){
             
             if(DoesUserExist(usernameOrEmail)){
+                
                 var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
                 UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
                 user.Username = foundUser.Username;
