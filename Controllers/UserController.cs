@@ -70,9 +70,9 @@ namespace strikeshowdown_backend.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserByUsernameOrEmail/{usernameOrEmail}")]
-        public UserWithoutSaltHashDTO GetUserByUsername(string usernameOrEmail){
-            return _data.GetUserByUsernameOrEmail(usernameOrEmail);
+        [Route("GetUserByUsername/{username}")]
+        public UserModel GetUserByUsername(string username){
+            return _data.GetUserByUsername(username);
         }
         
     }

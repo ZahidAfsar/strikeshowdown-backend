@@ -200,32 +200,6 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
-        public UserWithoutSaltHashDTO GetUserByUsernameOrEmail(string usernameOrEmail){
-            
-            if(DoesUserExist(usernameOrEmail)){
-                var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
-                UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
-                user.Username = foundUser.Username;
-                user.Email = foundUser.Email;
-                user.SecurityQuestion = foundUser.SecurityQuestion;
-                user.SecurityQuestionTwo = foundUser.SecurityQuestionTwo;
-                user.SecurityQuestionThree = foundUser.SecurityQuestionThree;
-                user.FullName = foundUser.FullName;
-                user.ProfileImage = foundUser.ProfileImage;
-                user.Pronouns = foundUser.Pronouns;
-                user.Wins = foundUser.Wins;
-                user.Loses = foundUser.Loses;
-                user.Style = foundUser.Style;
-                user.MainCenter = foundUser.MainCenter;
-                user.Average = foundUser.Average;
-                user.Earnings = foundUser.Earnings;
-                return user;
-            } 
-
-            return null;
-        }
-
-
         public bool UpdateUser(UserModel userToUpdate)
         {
             _context.Update<UserModel>(userToUpdate);
