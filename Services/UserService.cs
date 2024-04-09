@@ -201,7 +201,6 @@ namespace strikeshowdown_backend.Services
         }
 
         public UserWithoutSaltHashDTO GetUserByUsernameOrEmail(string usernameOrEmail){
-            
             if(DoesUserExist(usernameOrEmail)){
                 var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
                 UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
@@ -220,11 +219,9 @@ namespace strikeshowdown_backend.Services
                 user.Average = foundUser.Average;
                 user.Earnings = foundUser.Earnings;
                 return user;
-            } 
-
+            }
             return null;
         }
-
 
         public bool UpdateUser(UserModel userToUpdate)
         {

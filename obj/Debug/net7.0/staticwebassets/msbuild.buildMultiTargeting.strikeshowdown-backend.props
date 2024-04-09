@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\build\strikeshowdown-backend.props" />
+  <Import Project="../build/strikeshowdown-backend.props" />
 </Project>
