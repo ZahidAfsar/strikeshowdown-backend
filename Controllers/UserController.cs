@@ -68,11 +68,11 @@ namespace strikeshowdown_backend.Controllers
         public bool DeleteUser(string userToDelete){
             return _data.DeleteUser(userToDelete);
         }
-
+        
         [HttpGet]
-        [Route("GetUserByUsername/{username}")]
-        public UserModel GetUserByUsername(string username){
-            return _data.GetUserByUsername(username);
+        [Route("GetUserByUsernameOrEmail/{usernameOrEmail}")]
+        public UserWithoutSaltHashDTO GetUserByUsername(string usernameOrEmail){
+            return _data.GetUserByUsernameOrEmail(usernameOrEmail);
         }
         
     }
