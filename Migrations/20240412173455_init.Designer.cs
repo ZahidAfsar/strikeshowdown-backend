@@ -11,7 +11,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240408165711_init")]
+    [Migration("20240412173455_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -91,6 +91,14 @@ namespace strikeshowdown_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HighGame")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HighSeries")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Loses")

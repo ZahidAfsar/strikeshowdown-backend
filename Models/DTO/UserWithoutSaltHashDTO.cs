@@ -20,5 +20,7 @@ namespace strikeshowdown_backend.Models.DTO
         public string MainCenter { get; set; } = "N/A";
         public string Average { get; set; } = "N/A";
         public string Earnings { get; set; } = "N/A";
+        public string HighGame { get; set; } = "N/A";
+        public string HighSeries { get; set; } = "N/A";    
     }
 }

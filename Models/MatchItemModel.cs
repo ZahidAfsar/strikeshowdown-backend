@@ -9,7 +9,6 @@ namespace strikeshowdown_backend.Models
     {
          public int ID { get; set; }
         public int UserID { get; set; }
-
         public string? PublishedName { get; set; }
         public string? Date { get; set; }
         public string? Title { get; set; }
