@@ -61,6 +61,8 @@ namespace strikeshowdown_backend.Services
                 newUser.MainCenter = UserToAdd.MainCenter;
                 newUser.Average = UserToAdd.Average;
                 newUser.Earnings = UserToAdd.Earnings;
+                newUser.HighGame = UserToAdd.HighGame;
+                newUser.HighSeries = UserToAdd.HighSeries;
 
                 _context.Add(newUser);
 
