@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using strikeshowdown_backend.Models;
+using strikeshowdown_backend.Models.DTO;
 using strikeshowdown_backend.Services;
 
 namespace strikeshowdown_backend.Controllers
@@ -20,7 +21,7 @@ namespace strikeshowdown_backend.Controllers
         }
         [HttpPost]
         [Route("AddMatch")]
-        public bool CreateMatch(MatchItemModel match, string publisher){
+        public bool CreateMatch(CreateMatchItemDTO match, string publisher){
             return _data.CreateMatch(match, publisher);
         }
     }
