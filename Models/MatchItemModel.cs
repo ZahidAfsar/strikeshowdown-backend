@@ -7,17 +7,20 @@ namespace strikeshowdown_backend.Models
 {
     public class MatchItemModel
     {
-         public int ID { get; set; }
+        public int ID { get; set; }
         public int UserID { get; set; }
-        public string? PublishedName { get; set; }
-        public string? Date { get; set; }
         public string? Title { get; set; }
+        public bool IsVisible { get; set; }
+        public string? State { get; set; }
+        public string? Locations { get; set; }
+        public string? Date { get; set; }
+        public string? Time { get; set; }
+        public int? MaxPpl { get; set; }
+        public int? CurrentPpl { get; set; }
         public string? Description { get; set; }
+        public bool IsFinished { get; set; }
+        public string? PublishedName { get; set; }
         public string? Image { get; set; }
-        public string? Tags { get; set; }
-        public string? Categories { get; set; }
-        public bool IsPublished { get; set; }
-        public bool IsDeleted { get; set; }
 
         public MatchItemModel()
         {
