@@ -59,7 +59,9 @@ namespace strikeshowdown_backend.Migrations
                     Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Average = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

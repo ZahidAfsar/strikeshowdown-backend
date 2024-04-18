@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj": {}
+    "/Users/zahidafsar/Documents/Codestack 2024/Third Level/TestBranchFullStack/strikeshowdown-backend/strikeshowdown-backend.csproj": {}
   },
   "projects": {
-    "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj": {
+    "/Users/zahidafsar/Documents/Codestack 2024/Third Level/TestBranchFullStack/strikeshowdown-backend/strikeshowdown-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj",
+        "projectUniqueName": "/Users/zahidafsar/Documents/Codestack 2024/Third Level/TestBranchFullStack/strikeshowdown-backend/strikeshowdown-backend.csproj",
         "projectName": "strikeshowdown-backend",
-        "projectPath": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/strikeshowdown-backend.csproj",
+        "projectPath": "/Users/zahidafsar/Documents/Codestack 2024/Third Level/TestBranchFullStack/strikeshowdown-backend/strikeshowdown-backend.csproj",
         "packagesPath": "/Users/zahidafsar/.nuget/packages/",
-        "outputPath": "/Users/zahidafsar/Documents/Codestack 2024/FullStackProject/strikeshowdown-backend/obj/",
+        "outputPath": "/Users/zahidafsar/Documents/Codestack 2024/Third Level/TestBranchFullStack/strikeshowdown-backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/zahidafsar/.nuget/NuGet/NuGet.Config"

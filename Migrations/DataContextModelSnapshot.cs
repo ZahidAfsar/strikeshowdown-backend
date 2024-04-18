@@ -90,6 +90,14 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HighGame")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HighSeries")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Loses")
                         .HasColumnType("int");
 
