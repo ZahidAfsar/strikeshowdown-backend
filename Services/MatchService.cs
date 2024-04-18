@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using strikeshowdown_backend.Models;
+using strikeshowdown_backend.Models.DTO;
 using strikeshowdown_backend.Services.Context;
 
 namespace strikeshowdown_backend.Services
@@ -25,7 +26,7 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
-        public bool CreateMatch(MatchItemModel MatchItem, string Publisher){
+        public bool CreateMatch(CreateMatchItemDTO MatchItem, string Publisher){
 
             var newMatch = new MatchItemModel();
 
@@ -43,7 +44,7 @@ namespace strikeshowdown_backend.Services
             newMatch.CurrentPpl = MatchItem.CurrentPpl;
             newMatch.Description = MatchItem.Description;
             newMatch.IsFinished = MatchItem.IsFinished;
-            newMatch.Image = MatchItem.Image;
+            newMatch.Image = foundUser.ProfileImage;
             newMatch.Wins = foundUser.Wins;
             newMatch.Average = foundUser.Average;
             newMatch.Style = foundUser.Style;
