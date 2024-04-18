@@ -31,7 +31,8 @@ namespace strikeshowdown_backend.Models
         public string Average { get; set; } = "N/A";
         public string Earnings { get; set; } = "N/A";
         public string HighGame { get; set; } = "N/A";
-        public string HighSeries { get; set; } = "N/A";    
+        public string HighSeries { get; set; } = "N/A"; 
+        public int Streak { get; set; }
         public UserModel()
         {
 
