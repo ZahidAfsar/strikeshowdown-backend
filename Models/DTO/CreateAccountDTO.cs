@@ -28,5 +28,6 @@ namespace strikeshowdown_backend.Models.DTO
         public string Earnings { get; set; } = "N/A";
         public string HighGame { get; set; } = "N/A";
         public string HighSeries { get; set; } = "N/A";  
+        public int Streak { get; set; }
     }
 }

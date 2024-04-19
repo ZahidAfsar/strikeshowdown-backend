@@ -63,6 +63,7 @@ namespace strikeshowdown_backend.Services
                 newUser.Earnings = UserToAdd.Earnings;
                 newUser.HighGame = UserToAdd.HighGame;
                 newUser.HighSeries = UserToAdd.HighSeries;
+                newUser.Streak = UserToAdd.Streak;
 
                 _context.Add(newUser);
 
