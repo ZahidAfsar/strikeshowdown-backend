@@ -10,6 +10,8 @@ namespace strikeshowdown_backend.Models
         public int ID { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
+
+        public string? Location { get; set; }
         public string? Salt { get; set; }
         public string? Hash { get; set; }
         public string? SecurityQuestion { get; set; }

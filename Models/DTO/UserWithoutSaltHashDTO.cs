@@ -8,6 +8,7 @@ namespace strikeshowdown_backend.Models.DTO
     {
         public string? Username { get; set; }
         public string? Email { get; set; }
+        public string? Location { get; set; }
         public string? SecurityQuestion { get; set; }
         public string? SecurityQuestionTwo { get; set; }
         public string? SecurityQuestionThree { get; set; }
