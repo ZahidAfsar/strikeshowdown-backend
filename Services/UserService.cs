@@ -41,6 +41,7 @@ namespace strikeshowdown_backend.Services
                 newUser.ID = UserToAdd.ID;
                 newUser.Username = UserToAdd.Username;
                 newUser.Email = UserToAdd.Email;
+                newUser.Location = UserToAdd.Location;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
                 newUser.SecurityQuestion = UserToAdd.SecurityQuestion;
@@ -203,12 +204,13 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
-        public UserWithoutSaltHashDTO GetUserByUsernameOrEmail(string usernameOrEmail){
+        public UserWithoutSaltHashDTO GetPublicUserInfo(string usernameOrEmail){
             if(DoesUserExist(usernameOrEmail)){
                 var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
                 UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
                 user.Username = foundUser.Username;
                 user.Email = foundUser.Email;
+                user.Location = foundUser.Location;
                 user.SecurityQuestion = foundUser.SecurityQuestion;
                 user.SecurityQuestionTwo = foundUser.SecurityQuestionTwo;
                 user.SecurityQuestionThree = foundUser.SecurityQuestionThree;
