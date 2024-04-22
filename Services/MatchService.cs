@@ -87,10 +87,9 @@ namespace strikeshowdown_backend.Services
             return _context.MatchInfo.Where(item => item.IsVisible == true);
         }
 
-        public IEnumerable<MatchItemModel> GetAllMatchesByUser(string username) {
-            return _context.MatchInfo.Where(item => item.Publisher == username);
+        public IEnumerable<MatchItemModel> GetAllMatchesByUserID(string username) {
+            UserModel foundUser = GetUserByUsernameOrEmail(username);
+            return _context.MatchInfo.Where(item => item.UserID == foundUser.ID);
         }
-
-
     }
 }
