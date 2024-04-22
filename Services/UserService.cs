@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using strikeshowdown_backend.Models;
@@ -38,7 +39,6 @@ namespace strikeshowdown_backend.Services
                 var hashPassword = HashPassword(UserToAdd.Password);
                 var hashAnswers = HashSecurity(UserToAdd.SecurityAnswer, UserToAdd.SecurityAnswerTwo, UserToAdd.SecurityAnswerThree);
 
-                newUser.ID = UserToAdd.ID;
                 newUser.Username = UserToAdd.Username;
                 newUser.Email = UserToAdd.Email;
                 newUser.Location = UserToAdd.Location;
@@ -228,9 +228,29 @@ namespace strikeshowdown_backend.Services
             return null;
         }
 
+        public IEnumerable<MatchItemModel> GetAllMatchesByUserID(int userID) {
+            return _context.MatchInfo.Where(item => item.UserID == userID);
+        }
+
+        public bool UpdateUserMatches(UserModel user){
+            List<MatchItemModel> MatchList = GetAllMatchesByUserID(user.ID).ToList();
+
+            foreach(var match in MatchList){
+                match.Wins = user.Wins;
+                match.Average = user.Average;
+                match.Streak = user.Streak;
+                match.Image = user.ProfileImage;
+                match.Style = user.Style;
+                match.Publisher = user.Username;
+                _context.Update<MatchItemModel>(match);
+            }
+
+            return _context.SaveChanges() != 0;
+        }
         public bool UpdateUser(UserModel userToUpdate)
         {
             _context.Update<UserModel>(userToUpdate);
+            UpdateUserMatches(userToUpdate);
             return _context.SaveChanges() != 0;
         }
 
@@ -266,7 +286,7 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
+        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings, string Location)
         {
             UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
@@ -274,6 +294,7 @@ namespace strikeshowdown_backend.Services
 
             if (foundUser != null)
             {
+                foundUser.Location = Location;
                 foundUser.Username = username;
                 foundUser.Email = Email;
                 foundUser.FullName = FullName;

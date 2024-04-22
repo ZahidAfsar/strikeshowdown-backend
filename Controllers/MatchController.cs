@@ -20,7 +20,7 @@ namespace strikeshowdown_backend.Controllers
             _data = data;
         }
         [HttpPost]
-        [Route("AddMatch")]
+        [Route("AddMatch/{publisher}")]
         public bool CreateMatch(CreateMatchItemDTO match, string publisher){
             return _data.CreateMatch(match, publisher);
         }
