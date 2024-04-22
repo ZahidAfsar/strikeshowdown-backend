@@ -8,6 +8,7 @@ namespace strikeshowdown_backend.Models
     public class MatchItemModel
     {
         public int ID { get; set; }
+        public int UserID { get; set; }
         public string? Title { get; set; }
         public bool? IsVisible { get; set; }
         public string? State { get; set; }

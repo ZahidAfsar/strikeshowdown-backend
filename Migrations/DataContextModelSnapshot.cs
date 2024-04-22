@@ -75,6 +75,9 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Wins")
                         .HasColumnType("int");
 
@@ -115,6 +118,9 @@ namespace strikeshowdown_backend.Migrations
 
                     b.Property<string>("HighSeries")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Loses")

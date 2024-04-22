@@ -46,8 +46,8 @@ namespace strikeshowdown_backend.Controllers
 
         [HttpPut]
         [Route("UpdateStats/{UsernameOrEmail}/{username}/{Email}/{FullName}/{Pronouns}/{ProfileImage}/{Wins}/{Loses}/{Style}/{Average}/{MainCenter}/{Earnings}")]
-        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings){
-            return _data.UpdateStats(UsernameOrEmail, username, Email, FullName, Pronouns, ProfileImage, Wins, Loses, Style, Average, MainCenter, Earnings);
+        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings, string Location){
+            return _data.UpdateStats(UsernameOrEmail, username, Email, FullName, Pronouns, ProfileImage, Wins, Loses, Style, Average, MainCenter, Earnings, Location);
         }
 
         [HttpPut]

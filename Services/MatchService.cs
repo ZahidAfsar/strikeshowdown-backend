@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 using strikeshowdown_backend.Models;
 using strikeshowdown_backend.Models.DTO;
 using strikeshowdown_backend.Services.Context;
@@ -17,22 +18,22 @@ namespace strikeshowdown_backend.Services
             _context = context;
         }
 
-        // public UserModel GetUserByUsername(string username)
-        // {
-        //     return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
-        // }
+        public UserModel GetUserByUsernameOrEmail(string usernameOrEmail) {
+            return _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
+        }
 
-        public UserModel GetUserByUsername(string username) {
-            return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
+        public MatchItemModel GetMatchItemModel(int ID, string publisher){
+            return _context.MatchInfo.SingleOrDefault(match => match.ID == ID && match.Publisher == publisher);
         }
 
         public bool CreateMatch(CreateMatchItemDTO MatchItem, string Publisher){
 
             var newMatch = new MatchItemModel();
 
-            var foundUser = GetUserByUsername(Publisher);
+            var foundUser = GetUserByUsernameOrEmail(Publisher);
 
             newMatch.ID = MatchItem.ID;
+            newMatch.UserID = foundUser.ID;
             newMatch.Publisher = Publisher;
             newMatch.Title = MatchItem.Title;
             newMatch.IsVisible = MatchItem.IsVisible;
@@ -54,5 +55,42 @@ namespace strikeshowdown_backend.Services
 
             return _context.SaveChanges() != 0;
         }
+
+        public bool UpdateMatchItem(MatchItemModel match){
+            bool result = false;
+            MatchItemModel foundMatch = GetMatchItemModel(match.ID, match.Publisher);
+            UserModel foundUser = GetUserByUsernameOrEmail(match.Publisher);
+            if (foundMatch != null){
+                foundMatch.Title = match.Title;
+                foundMatch.IsVisible = match.IsVisible;
+                foundMatch.State = match.State;
+                foundMatch.Locations = match.Locations;
+                foundMatch.Date = match.Date;
+                foundMatch.Time = match.Time;
+                foundMatch.MaxPpl = match.MaxPpl;
+                foundMatch.CurrentPpl = match.CurrentPpl;
+                foundMatch.Description = match.Description;
+                foundMatch.IsFinished = match.IsFinished;
+                foundMatch.Publisher = foundUser.Username;
+                foundMatch.Image = foundUser.ProfileImage;
+                foundMatch.Wins = foundUser.Wins;
+                foundMatch.Average = foundUser.Average;
+                foundMatch.Style = foundUser.Style;
+                foundMatch.Streak = foundUser.Streak;
+                _context.Update<MatchItemModel>(foundMatch);
+                result = _context.SaveChanges() != 0;
+            }
+            return result;
+        }
+
+        public IEnumerable<MatchItemModel> GetAllPublicMatchItems(){
+            return _context.MatchInfo.Where(item => item.IsVisible == true);
+        }
+
+        public IEnumerable<MatchItemModel> GetAllMatchesByUser(string username) {
+            return _context.MatchInfo.Where(item => item.Publisher == username);
+        }
+
+
     }
 }
