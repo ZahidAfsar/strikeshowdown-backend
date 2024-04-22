@@ -27,7 +27,7 @@ namespace strikeshowdown_backend.Controllers
 
         [HttpGet]
         [Route("GetPublicMatches")]
-        public IEnumerable<MatchItemModel> GetAllPublicMatches(string username){
+        public IEnumerable<MatchItemModel> GetAllPublicMatches(){
             return _data.GetAllPublicMatchItems();
         }
     }
