@@ -24,5 +24,11 @@ namespace strikeshowdown_backend.Controllers
         public bool CreateMatch(CreateMatchItemDTO match, string publisher){
             return _data.CreateMatch(match, publisher);
         }
+
+        [HttpGet]
+        [Route("GetPublicMatches")]
+        public IEnumerable<MatchItemModel> GetAllPublicMatches(string username){
+            return _data.GetAllPublicMatchItems();
+        }
     }
 }
