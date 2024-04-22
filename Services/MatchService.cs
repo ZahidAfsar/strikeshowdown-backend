@@ -83,17 +83,8 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public IEnumerable<MatchItemModel> GetAllPublicMatchItems(){
-            return _context.MatchInfo.Where(item => item.IsVisible == true);
-        }
-
         public bool DeleteMatch(MatchItemModel match){
             match.IsFinished = true;
-            _context.Update<MatchItemModel>(match);
-            return _context.SaveChanges() != 0;
-        }
-
-        public bool UpdateMatch(MatchItemModel match){
             _context.Update<MatchItemModel>(match);
             return _context.SaveChanges() != 0;
         }
@@ -101,6 +92,9 @@ namespace strikeshowdown_backend.Services
         public IEnumerable<MatchItemModel> GetAllMatchesByUserID(string username) {
             UserModel foundUser = GetUserByUsernameOrEmail(username);
             return _context.MatchInfo.Where(item => item.UserID == foundUser.ID);
+        }
+        public IEnumerable<MatchItemModel> GetAllPublicMatchItems(){
+            return _context.MatchInfo.Where(item => item.IsVisible == true);
         }
     }
 }
