@@ -40,7 +40,7 @@ namespace strikeshowdown_backend.Controllers
         [HttpPut]
         [Route("UpdateMatch")]
         public bool Update(MatchItemModel match){
-            return _data.UpdateMatch(match);
+            return _data.UpdateMatchItem(match);
         }
     }
 }
