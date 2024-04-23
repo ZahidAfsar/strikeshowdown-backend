@@ -161,7 +161,6 @@ namespace strikeshowdown_backend.Services
 
             return newHash == storedHash;
 
-
         }
 
 
@@ -198,7 +197,6 @@ namespace strikeshowdown_backend.Services
             return Result;
         }
 
-
         public UserModel GetUserByUsername(string username)
         {
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
@@ -208,6 +206,7 @@ namespace strikeshowdown_backend.Services
             if(DoesUserExist(usernameOrEmail)){
                 var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
                 UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
+                user.ID = foundUser.ID;
                 user.Username = foundUser.Username;
                 user.Email = foundUser.Email;
                 user.Location = foundUser.Location;

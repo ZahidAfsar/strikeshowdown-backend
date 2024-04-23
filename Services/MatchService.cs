@@ -12,21 +12,23 @@ namespace strikeshowdown_backend.Services
     public class MatchService
     {
         private readonly DataContext _context;
-        
+
         public MatchService(DataContext context)
         {
             _context = context;
         }
 
-        public UserModel GetUserByUsernameOrEmail(string usernameOrEmail) {
+        public UserModel GetUserByUsernameOrEmail(string usernameOrEmail)
+        {
             return _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
         }
 
-        public MatchItemModel GetMatchItemModel(int ID, string publisher){
+        public MatchItemModel GetMatchItemModel(int ID, string publisher)
+        {
             return _context.MatchInfo.SingleOrDefault(match => match.ID == ID && match.Publisher == publisher);
         }
-
-        public bool CreateMatch(CreateMatchItemDTO MatchItem, string Publisher){
+        public bool CreateMatch(CreateMatchItemDTO MatchItem, string Publisher)
+        {
 
             var newMatch = new MatchItemModel();
 
@@ -56,44 +58,30 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool UpdateMatchItem(MatchItemModel match){
-            bool result = false;
-            MatchItemModel foundMatch = GetMatchItemModel(match.ID, match.Publisher);
-            UserModel foundUser = GetUserByUsernameOrEmail(match.Publisher);
-            if (foundMatch != null){
-                foundMatch.Title = match.Title;
-                foundMatch.IsVisible = match.IsVisible;
-                foundMatch.State = match.State;
-                foundMatch.Locations = match.Locations;
-                foundMatch.Date = match.Date;
-                foundMatch.Time = match.Time;
-                foundMatch.MaxPpl = match.MaxPpl;
-                foundMatch.CurrentPpl = match.CurrentPpl;
-                foundMatch.Description = match.Description;
-                foundMatch.IsFinished = match.IsFinished;
-                foundMatch.Publisher = foundUser.Username;
-                foundMatch.Image = foundUser.ProfileImage;
-                foundMatch.Wins = foundUser.Wins;
-                foundMatch.Average = foundUser.Average;
-                foundMatch.Style = foundUser.Style;
-                foundMatch.Streak = foundUser.Streak;
-                _context.Update<MatchItemModel>(foundMatch);
-                result = _context.SaveChanges() != 0;
-            }
-            return result;
+        public bool UpdateMatchItem(MatchItemModel match)
+        {
+            _context.Update<MatchItemModel>(match);
+            return _context.SaveChanges() != 0;
         }
 
-        public bool DeleteMatch(MatchItemModel match){
+        public bool DeleteMatch(MatchItemModel match)
+        {
             match.IsFinished = true;
             _context.Update<MatchItemModel>(match);
             return _context.SaveChanges() != 0;
         }
 
-        public IEnumerable<MatchItemModel> GetAllMatchesByUserID(string username) {
-            UserModel foundUser = GetUserByUsernameOrEmail(username);
-            return _context.MatchInfo.Where(item => item.UserID == foundUser.ID);
+        public IEnumerable<MatchItemModel> GetAllMatchesByUserID(int userID)
+        {
+            return _context.MatchInfo.Where(item => item.UserID == userID);
         }
-        public IEnumerable<MatchItemModel> GetAllPublicMatchItems(){
+
+        public IEnumerable<MatchItemModel> GetAllMatchesByUsername(string username)
+        {
+            return _context.MatchInfo.Where(item => item.Publisher == username);
+        }
+        public IEnumerable<MatchItemModel> GetAllPublicMatchItems()
+        {
             return _context.MatchInfo.Where(item => item.IsVisible == true);
         }
     }
