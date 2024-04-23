@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240421115450_init")]
+    [Migration("20240423084446_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -126,7 +126,7 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Loses")
+                    b.Property<int>("Losses")
                         .HasColumnType("int");
 
                     b.Property<string>("MainCenter")

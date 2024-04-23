@@ -17,7 +17,7 @@ namespace strikeshowdown_backend.Models.DTO
         public string ProfileImage { get; set; } = "N/A";
         public string Pronouns { get; set; } = "N/A";
         public int Wins { get; set; } = 0;
-        public int Loses { get; set; } = 0;
+        public int Losses { get; set; } = 0;
         public string Style { get; set; } = "N/A";
         public string MainCenter { get; set; } = "N/A";
         public string Average { get; set; } = "N/A";
