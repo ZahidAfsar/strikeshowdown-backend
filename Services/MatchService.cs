@@ -83,5 +83,10 @@ namespace strikeshowdown_backend.Services
         {
             return _context.MatchInfo.Where(item => item.IsVisible == true);
         }
+
+        public IEnumerable<MatchItemModel> GetPublicMatchesByState(string state)
+        {
+            return _context.MatchInfo.Where(item => item.State == state);
+        }
     }
 }

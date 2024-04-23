@@ -32,6 +32,12 @@ namespace strikeshowdown_backend.Controllers
         }
 
         [HttpGet]
+        [Route("GetPublicMatchesByState/{state}")]
+        public IEnumerable<MatchItemModel> GetPublicMatchesByState(string state){
+            return _data.GetPublicMatchesByState(state);
+        }
+
+        [HttpGet]
         [Route("GetMatchesByID/{userID}")]
         public IEnumerable<MatchItemModel> GetAllMatchesByID(int userID){
             return _data.GetAllMatchesByUserID(userID);
