@@ -33,9 +33,9 @@ namespace strikeshowdown_backend.Controllers
         }
         
         [HttpPut]
-        [Route("UpdateUser")]
-        public bool UpdateUser(UserModel userToUpdate){
-            return _data.UpdateUser(userToUpdate);
+        [Route("UpdateUser/{username}")]
+        public bool UpdateUser(string username, UserWithoutSaltHashDTO userToUpdate){
+            return _data.UpdateUser(username, userToUpdate);
         }
 
         [HttpPut]

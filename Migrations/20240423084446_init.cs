@@ -63,7 +63,7 @@ namespace strikeshowdown_backend.Migrations
                     ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pronouns = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Wins = table.Column<int>(type: "int", nullable: false),
-                    Loses = table.Column<int>(type: "int", nullable: false),
+                    Losses = table.Column<int>(type: "int", nullable: false),
                     Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Average = table.Column<string>(type: "nvarchar(max)", nullable: false),

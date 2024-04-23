@@ -123,7 +123,7 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Loses")
+                    b.Property<int>("Losses")
                         .HasColumnType("int");
 
                     b.Property<string>("MainCenter")
