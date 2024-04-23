@@ -34,7 +34,6 @@ namespace strikeshowdown_backend.Services
 
             var foundUser = GetUserByUsernameOrEmail(Publisher);
 
-            newMatch.ID = MatchItem.ID;
             newMatch.UserID = foundUser.ID;
             newMatch.Publisher = Publisher;
             newMatch.Title = MatchItem.Title;

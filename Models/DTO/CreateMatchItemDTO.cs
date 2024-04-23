@@ -7,7 +7,6 @@ namespace strikeshowdown_backend.Models.DTO
 {
     public class CreateMatchItemDTO
     {
-        public int ID { get; set; }
         public string? Title { get; set; }
         public bool? IsVisible { get; set; }
         public string? State { get; set; }
