@@ -75,6 +75,16 @@ namespace strikeshowdown_backend.Services
             return _context.MatchInfo.Where(item => item.UserID == userID);
         }
 
+        public IEnumerable<MatchItemModel> GetAllMatchesByStyle(string style)
+        {
+            return _context.MatchInfo.Where(item => item.Style == style);
+        }
+
+        public IEnumerable<MatchItemModel> GetAllMatchesByAvg(string avg)
+        {
+            return _context.MatchInfo.Where(item => item.Average == avg);
+        }
+
         public IEnumerable<MatchItemModel> GetAllMatchesByUsername(string username)
         {
             return _context.MatchInfo.Where(item => item.Publisher == username);
