@@ -17,15 +17,22 @@ namespace strikeshowdown_backend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    PublishedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsVisible = table.Column<bool>(type: "bit", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Locations = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Time = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaxPpl = table.Column<int>(type: "int", nullable: true),
+                    CurrentPpl = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsFinished = table.Column<bool>(type: "bit", nullable: true),
+                    Publisher = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Wins = table.Column<int>(type: "int", nullable: true),
+                    Average = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Style = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Streak = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,6 +47,7 @@ namespace strikeshowdown_backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityQuestion = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -55,13 +63,14 @@ namespace strikeshowdown_backend.Migrations
                     ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pronouns = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Wins = table.Column<int>(type: "int", nullable: false),
-                    Loses = table.Column<int>(type: "int", nullable: false),
+                    Losses = table.Column<int>(type: "int", nullable: false),
                     Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Average = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Streak = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
