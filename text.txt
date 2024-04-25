@@ -36,7 +36,7 @@ Strike Showdown
 **Match Controller:**
 
         - Edit Match Information
-        - Edit Sestion Information
+        - Edit Session Information
 
 username :
 AdminLogin
