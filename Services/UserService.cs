@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using strikeshowdown_backend.Models;
@@ -38,9 +39,9 @@ namespace strikeshowdown_backend.Services
                 var hashPassword = HashPassword(UserToAdd.Password);
                 var hashAnswers = HashSecurity(UserToAdd.SecurityAnswer, UserToAdd.SecurityAnswerTwo, UserToAdd.SecurityAnswerThree);
 
-                newUser.ID = UserToAdd.ID;
                 newUser.Username = UserToAdd.Username;
                 newUser.Email = UserToAdd.Email;
+                newUser.Location = UserToAdd.Location;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
                 newUser.SecurityQuestion = UserToAdd.SecurityQuestion;
@@ -56,13 +57,14 @@ namespace strikeshowdown_backend.Services
                 newUser.ProfileImage = UserToAdd.ProfileImage;
                 newUser.Pronouns = UserToAdd.Pronouns;
                 newUser.Wins = UserToAdd.Wins;
-                newUser.Loses = UserToAdd.Loses;
+                newUser.Losses = UserToAdd.Losses;
                 newUser.Style = UserToAdd.Style;
                 newUser.MainCenter = UserToAdd.MainCenter;
                 newUser.Average = UserToAdd.Average;
                 newUser.Earnings = UserToAdd.Earnings;
                 newUser.HighGame = UserToAdd.HighGame;
                 newUser.HighSeries = UserToAdd.HighSeries;
+                newUser.Streak = UserToAdd.Streak;
 
                 _context.Add(newUser);
 
@@ -159,7 +161,6 @@ namespace strikeshowdown_backend.Services
 
             return newHash == storedHash;
 
-
         }
 
 
@@ -196,18 +197,21 @@ namespace strikeshowdown_backend.Services
             return Result;
         }
 
-
         public UserModel GetUserByUsername(string username)
         {
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
         }
 
-        public UserWithoutSaltHashDTO GetUserByUsernameOrEmail(string usernameOrEmail){
-            if(DoesUserExist(usernameOrEmail)){
+        public UserWithoutSaltHashDTO GetPublicUserInfo(string usernameOrEmail)
+        {
+            if (DoesUserExist(usernameOrEmail))
+            {
                 var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == usernameOrEmail || user.Email == usernameOrEmail);
                 UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
+                user.ID = foundUser.ID;
                 user.Username = foundUser.Username;
                 user.Email = foundUser.Email;
+                user.Location = foundUser.Location;
                 user.SecurityQuestion = foundUser.SecurityQuestion;
                 user.SecurityQuestionTwo = foundUser.SecurityQuestionTwo;
                 user.SecurityQuestionThree = foundUser.SecurityQuestionThree;
@@ -215,19 +219,64 @@ namespace strikeshowdown_backend.Services
                 user.ProfileImage = foundUser.ProfileImage;
                 user.Pronouns = foundUser.Pronouns;
                 user.Wins = foundUser.Wins;
-                user.Loses = foundUser.Loses;
+                user.Losses = foundUser.Losses;
                 user.Style = foundUser.Style;
                 user.MainCenter = foundUser.MainCenter;
                 user.Average = foundUser.Average;
                 user.Earnings = foundUser.Earnings;
+                user.HighGame = foundUser.HighGame;
+                user.HighSeries = foundUser.HighSeries;
+                user.Streak = foundUser.Streak;
                 return user;
             }
             return null;
         }
 
-        public bool UpdateUser(UserModel userToUpdate)
+        public IEnumerable<MatchItemModel> GetAllMatchesByUserID(int userID)
         {
-            _context.Update<UserModel>(userToUpdate);
+            return _context.MatchInfo.Where(item => item.UserID == userID);
+        }
+
+        public bool UpdateUserMatches(UserModel user)
+        {
+            List<MatchItemModel> MatchList = GetAllMatchesByUserID(user.ID).ToList();
+
+            foreach (var match in MatchList)
+            {
+                match.Wins = user.Wins;
+                match.Average = user.Average;
+                match.Streak = user.Streak;
+                match.Image = user.ProfileImage;
+                match.Style = user.Style;
+                match.Publisher = user.Username;
+                _context.Update<MatchItemModel>(match);
+            }
+
+            return _context.SaveChanges() != 0;
+        }
+        public bool UpdateUser(string username, UserWithoutSaltHashDTO userToUpdate)
+        {
+            UserModel foundUser = GetUserByUsername(username);
+            foundUser.Username = userToUpdate.Username;
+            foundUser.Email = userToUpdate.Email;
+            foundUser.Location = userToUpdate.Location;
+            foundUser.SecurityQuestion = userToUpdate.SecurityQuestion;
+            foundUser.SecurityQuestionTwo = userToUpdate.SecurityQuestionTwo;
+            foundUser.SecurityQuestionThree = userToUpdate.SecurityQuestionThree;
+            foundUser.FullName = userToUpdate.FullName;
+            foundUser.ProfileImage = userToUpdate.ProfileImage;
+            foundUser.Pronouns = userToUpdate.Pronouns;
+            foundUser.Wins = userToUpdate.Wins;
+            foundUser.Losses = userToUpdate.Losses;
+            foundUser.Style = userToUpdate.Style;
+            foundUser.MainCenter = userToUpdate.MainCenter;
+            foundUser.Average = userToUpdate.Average;
+            foundUser.Earnings = userToUpdate.Earnings;
+            foundUser.HighGame = userToUpdate.HighGame;
+            foundUser.HighSeries = userToUpdate.HighSeries;
+            foundUser.Streak = userToUpdate.Streak;
+            _context.Update<UserModel>(foundUser);
+            UpdateUserMatches(foundUser);
             return _context.SaveChanges() != 0;
         }
 
@@ -263,7 +312,7 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings)
+        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Losses, string Style, string Average, string MainCenter, string Earnings, string Location)
         {
             UserModel foundUser = GetUserByUsername(UsernameOrEmail);
 
@@ -271,13 +320,14 @@ namespace strikeshowdown_backend.Services
 
             if (foundUser != null)
             {
+                foundUser.Location = Location;
                 foundUser.Username = username;
                 foundUser.Email = Email;
                 foundUser.FullName = FullName;
                 foundUser.Pronouns = Pronouns;
                 foundUser.ProfileImage = ProfileImage;
                 foundUser.Wins = Wins;
-                foundUser.Loses = Loses;
+                foundUser.Losses = Losses;
                 foundUser.Style = Average;
                 foundUser.MainCenter = MainCenter;
                 foundUser.Earnings = Earnings;
