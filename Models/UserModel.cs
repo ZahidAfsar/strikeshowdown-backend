@@ -33,7 +33,7 @@ namespace strikeshowdown_backend.Models
         public string HighGame { get; set; } = "N/A";
         public string HighSeries { get; set; } = "N/A";
         public int Streak { get; set; } = 0;
-        public List<int> Friends { get; set; } = new List<int>();
+
         public UserModel()
         {
         }
