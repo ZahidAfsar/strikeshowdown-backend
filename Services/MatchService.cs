@@ -45,17 +45,24 @@ namespace strikeshowdown_backend.Services
             newMatch.Style = foundUser.Style;
             newMatch.Streak = foundUser.Streak;
 
-            if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
+        if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
+{
+    foreach (var userId in MatchItem.InvitedUserIds)
     {
-        foreach (var userId in MatchItem.InvitedUserIds)
+        var invitedUser = GetUserByUsernameOrEmail(userId);
+        if (invitedUser != null)
         {
-            var invitedUser = GetUserByUsernameOrEmail(userId);
-            if (invitedUser != null)
+            var invitedUserDTO = new UseridDTO
             {
-                newMatch.InvitedUsers.Add(invitedUser);
-            }
+                UserId = invitedUser.ID
+      
+            };
+
+            newMatch.InvitedUsers.Add(invitedUserDTO);
         }
     }
+}
+
 
             _context.Add(newMatch);
             return _context.SaveChanges() != 0;
