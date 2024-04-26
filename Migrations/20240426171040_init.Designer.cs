@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240426164920_init")]
+    [Migration("20240426171040_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,31 @@ namespace strikeshowdown_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("MatchItemModelID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PublisherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MatchItemModelID");
+
+                    b.ToTable("UseridDTO");
+                });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.MatchItemModel", b =>
                 {
@@ -133,9 +158,6 @@ namespace strikeshowdown_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MatchItemModelID")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProfileImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -189,12 +211,10 @@ namespace strikeshowdown_backend.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MatchItemModelID");
-
                     b.ToTable("UserInfo");
                 });
 
-            modelBuilder.Entity("strikeshowdown_backend.Models.UserModel", b =>
+            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
                 {
                     b.HasOne("strikeshowdown_backend.Models.MatchItemModel", null)
                         .WithMany("InvitedUsers")

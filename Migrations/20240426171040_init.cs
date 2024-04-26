@@ -70,28 +70,45 @@ namespace strikeshowdown_backend.Migrations
                     Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Streak = table.Column<int>(type: "int", nullable: false),
-                    MatchItemModelID = table.Column<int>(type: "int", nullable: true)
+                    Streak = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInfo", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UseridDTO",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MatchItemModelID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UseridDTO", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_UserInfo_MatchInfo_MatchItemModelID",
+                        name: "FK_UseridDTO_MatchInfo_MatchItemModelID",
                         column: x => x.MatchItemModelID,
                         principalTable: "MatchInfo",
                         principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_MatchItemModelID",
-                table: "UserInfo",
+                name: "IX_UseridDTO_MatchItemModelID",
+                table: "UseridDTO",
                 column: "MatchItemModelID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "UseridDTO");
+
             migrationBuilder.DropTable(
                 name: "UserInfo");
 

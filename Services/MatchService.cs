@@ -55,15 +55,11 @@ namespace strikeshowdown_backend.Services
             var invitedUserDTO = new UseridDTO
             {
                 UserId = invitedUser.ID
-      
             };
-
             newMatch.InvitedUsers.Add(invitedUserDTO);
         }
     }
 }
-
-
             _context.Add(newMatch);
             return _context.SaveChanges() != 0;
         }
