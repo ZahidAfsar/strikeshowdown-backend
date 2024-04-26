@@ -24,6 +24,7 @@ namespace strikeshowdown_backend.Models
         public string? Average { get; set; }
         public string? Style { get; set; }
         public int? Streak { get; set; }
+        public List<UserModel> InvitedUsers { get; set; } = new List<UserModel>();
         public MatchItemModel()
         {
         }

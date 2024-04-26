@@ -16,5 +16,6 @@ namespace strikeshowdown_backend.Models.DTO
         public int? CurrentPpl { get; set; }
         public string? Description { get; set; }
         public bool? IsFinished { get; set; }
+        public List<string>? InvitedUserIds { get; set; }
     }
 }
