@@ -33,7 +33,7 @@ Strike Showdown
         - Edit User Information
         - Edit Location
 
-**Match Controller:**
+** Match Controller: **
 
         - Edit Match Information
         - Edit Session Information
