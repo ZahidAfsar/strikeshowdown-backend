@@ -45,22 +45,22 @@ namespace strikeshowdown_backend.Services
             newMatch.Style = foundUser.Style;
             newMatch.Streak = foundUser.Streak;
 
-        if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
-{
-    foreach (var userId in MatchItem.InvitedUserIds)
-    {
-        var invitedUser = GetUserByUsernameOrEmail(userId);
-        if (invitedUser != null)
-        {
-            var invitedUserDTO = new UseridDTO
-            {
-                UserId = invitedUser.ID
-            };
-            newMatch.InvitedUsers.Add(invitedUserDTO);
-        }
-    }
-}
-            _context.Add(newMatch);
+//         if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
+// {
+//     foreach (var userId in MatchItem.InvitedUserIds)
+//     {
+//         var invitedUser = GetUserByUsernameOrEmail(userId);
+//         if (invitedUser != null)
+//         {
+//             var invitedUserDTO = new UseridDTO
+//             {
+//                 UserId = invitedUser.ID
+//             };
+//             newMatch.InvitedUsers.Add(invitedUserDTO);
+//         }
+//     }
+// }
+//             _context.Add(newMatch);
             return _context.SaveChanges() != 0;
         }
         public bool UpdateMatchItem(MatchItemModel match)
