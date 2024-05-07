@@ -60,7 +60,7 @@ namespace strikeshowdown_backend.Services
 //         }
 //     }
 // }
-//             _context.Add(newMatch);
+            _context.Add(newMatch);
             return _context.SaveChanges() != 0;
         }
         public bool UpdateMatchItem(MatchItemModel match)
