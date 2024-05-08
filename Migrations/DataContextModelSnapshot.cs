@@ -22,6 +22,31 @@ namespace strikeshowdown_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("MatchItemModelID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PublisherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MatchItemModelID");
+
+                    b.ToTable("UseridDTO");
+                });
+
             modelBuilder.Entity("strikeshowdown_backend.Models.MatchItemModel", b =>
                 {
                     b.Property<int>("ID")
@@ -184,6 +209,18 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserInfo");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
+                {
+                    b.HasOne("strikeshowdown_backend.Models.MatchItemModel", null)
+                        .WithMany("InvitedUsers")
+                        .HasForeignKey("MatchItemModelID");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.MatchItemModel", b =>
+                {
+                    b.Navigation("InvitedUsers");
                 });
 #pragma warning restore 612, 618
         }

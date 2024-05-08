@@ -33,10 +33,10 @@ Strike Showdown
         - Edit User Information
         - Edit Location
 
-**Match Controller:**
+** Match Controller: **
 
         - Edit Match Information
-        - Edit Sestion Information
+        - Edit Session Information
 
 username :
 AdminLogin

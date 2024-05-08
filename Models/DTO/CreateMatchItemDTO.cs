@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace strikeshowdown_backend.Models.DTO
 {
     public class CreateMatchItemDTO
@@ -17,5 +16,6 @@ namespace strikeshowdown_backend.Models.DTO
         public int? CurrentPpl { get; set; }
         public string? Description { get; set; }
         public bool? IsFinished { get; set; }
+        // public List<string>? InvitedUserIds { get; set; }
     }
 }

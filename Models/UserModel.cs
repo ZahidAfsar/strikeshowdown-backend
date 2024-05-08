@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace strikeshowdown_backend.Models
 {
     public class UserModel
@@ -32,11 +31,11 @@ namespace strikeshowdown_backend.Models
         public string Average { get; set; } = "N/A";
         public string Earnings { get; set; } = "N/A";
         public string HighGame { get; set; } = "N/A";
-        public string HighSeries { get; set; } = "N/A"; 
+        public string HighSeries { get; set; } = "N/A";
         public int Streak { get; set; } = 0;
+
         public UserModel()
         {
-
         }
     }
 }
