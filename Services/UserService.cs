@@ -254,6 +254,27 @@ namespace strikeshowdown_backend.Services
 
             return _context.SaveChanges() != 0;
         }
+
+        public IEnumerable<RecentWinnerModel> GetRecentWinnersByUsername(string username)
+        {
+            return _context.RecentWinnerInfo.Where(winner => winner.Username == username);
+        }
+
+        public bool UpdateRecentWinners(string username)
+        {
+            List<RecentWinnerModel> winnerList = GetRecentWinnersByUsername(username).ToList();
+
+            foreach (RecentWinnerModel winner in winnerList)
+            {
+                if (winner.Username == username)
+                {
+                    winner.IsDeleted = true;
+                }
+                _context.Update<RecentWinnerModel>(winner);
+            }
+            return _context.SaveChanges() != 0;
+        }
+
         public bool UpdateUser(string username, UserWithoutSaltHashDTO userToUpdate)
         {
             UserModel foundUser = GetUserByUsername(username);

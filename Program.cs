@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<MatchService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<RecentWinnerService>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("StrikeShowdown");
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<DataContext>(Options => Options.UseSqlServer(conne
 
 builder.Services.AddCors(options => options.AddPolicy("StrikePolicy", 
 builder => {
-    builder.WithOrigins("http://localhost:5039", "https://strikeshowdownbackend.azurewebsites.net", "http://localhost:3000", "https://full-stack-strike-showdown.vercel.app")
+    builder.WithOrigins("http://localhost:5039", "https://strikeshowdownbackend.azurewebsites.net", "http://localhost:3000", "https://full-stack-strike-showdown.vercel.app", "https://full-stack-strike-showdown-git-jayvons-branch-jayvons-projects.vercel.app/")
     .AllowAnyHeader()
     .AllowAnyMethod();
 }));
