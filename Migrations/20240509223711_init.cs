@@ -40,6 +40,34 @@ namespace strikeshowdown_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RecentWinnerInfo",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pronouns = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Wins = table.Column<int>(type: "int", nullable: false),
+                    Losses = table.Column<int>(type: "int", nullable: false),
+                    Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainCenter = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Average = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecentWinnerInfo", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserInfo",
                 columns: table => new
                 {
@@ -76,44 +104,19 @@ namespace strikeshowdown_backend.Migrations
                 {
                     table.PrimaryKey("PK_UserInfo", x => x.ID);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "UseridDTO",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MatchItemModelID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UseridDTO", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UseridDTO_MatchInfo_MatchItemModelID",
-                        column: x => x.MatchItemModelID,
-                        principalTable: "MatchInfo",
-                        principalColumn: "ID");
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UseridDTO_MatchItemModelID",
-                table: "UseridDTO",
-                column: "MatchItemModelID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UseridDTO");
+                name: "MatchInfo");
+
+            migrationBuilder.DropTable(
+                name: "RecentWinnerInfo");
 
             migrationBuilder.DropTable(
                 name: "UserInfo");
-
-            migrationBuilder.DropTable(
-                name: "MatchInfo");
         }
     }
 }

@@ -12,11 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<<< HEAD:Migrations/20240423084446_init.Designer.cs
-    [Migration("20240423084446_init")]
-========
-    [Migration("20240507163353_init")]
->>>>>>>> 2920a66c63fa31014aba1f9772a29715a03fc9b8:Migrations/20240507163353_init.Designer.cs
+    [Migration("20240509223711_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -28,31 +24,6 @@ namespace strikeshowdown_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("MatchItemModelID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PublisherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MatchItemModelID");
-
-                    b.ToTable("UseridDTO");
-                });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.MatchItemModel", b =>
                 {
@@ -116,6 +87,77 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("MatchInfo");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.RecentWinnerModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Average")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Earnings")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HighGame")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HighSeries")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MainCenter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pronouns")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Style")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RecentWinnerInfo");
                 });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.UserModel", b =>
@@ -216,18 +258,6 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserInfo");
-                });
-
-            modelBuilder.Entity("strikeshowdown_backend.Models.DTO.UseridDTO", b =>
-                {
-                    b.HasOne("strikeshowdown_backend.Models.MatchItemModel", null)
-                        .WithMany("InvitedUsers")
-                        .HasForeignKey("MatchItemModelID");
-                });
-
-            modelBuilder.Entity("strikeshowdown_backend.Models.MatchItemModel", b =>
-                {
-                    b.Navigation("InvitedUsers");
                 });
 #pragma warning restore 612, 618
         }
