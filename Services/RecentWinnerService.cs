@@ -51,6 +51,7 @@ namespace strikeshowdown_backend.Services
             UpdatePastRecentWinners(username);
             UserModel foundUser = GetUserByUsername(username);
             RecentWinnerModel newWinner = new RecentWinnerModel();
+            newWinner.UserID = foundUser.ID;
             newWinner.Username = foundUser.Username;
             newWinner.Email = foundUser.Email;
             newWinner.Location = foundUser.Location;

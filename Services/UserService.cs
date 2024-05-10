@@ -255,21 +255,31 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public IEnumerable<RecentWinnerModel> GetRecentWinnersByUsername(string username)
+        public IEnumerable<RecentWinnerModel> GetRecentWinnersByUserID(int id)
         {
-            return _context.RecentWinnerInfo.Where(winner => winner.Username == username);
+            return _context.RecentWinnerInfo.Where(winner => winner.UserID == id);
         }
 
-        public bool UpdateRecentWinners(string username)
+        public bool UpdateRecentWinners(UserModel user)
         {
-            List<RecentWinnerModel> winnerList = GetRecentWinnersByUsername(username).ToList();
+            List<RecentWinnerModel> winnerList = GetRecentWinnersByUserID(user.ID).ToList();
 
             foreach (RecentWinnerModel winner in winnerList)
             {
-                if (winner.Username == username)
-                {
-                    winner.IsDeleted = true;
-                }
+                winner.Username = user.Username;
+                winner.Email = user.Email;
+                winner.Location = user.Location;
+                winner.FullName = user.FullName;
+                winner.ProfileImage = user.FullName;
+                winner.Pronouns = user.Pronouns;
+                winner.Wins = user.Wins;
+                winner.Losses = user.Losses;
+                winner.Style = user.Style;
+                winner.MainCenter = user.MainCenter;
+                winner.Average = user.Average;
+                winner.Earnings = user.Earnings;
+                winner.HighGame = user.HighGame;
+                winner.HighSeries = user.HighSeries;
                 _context.Update<RecentWinnerModel>(winner);
             }
             return _context.SaveChanges() != 0;
@@ -298,6 +308,7 @@ namespace strikeshowdown_backend.Services
             foundUser.Streak = userToUpdate.Streak;
             _context.Update<UserModel>(foundUser);
             UpdateUserMatches(foundUser);
+            UpdateRecentWinners(foundUser);
             return _context.SaveChanges() != 0;
         }
 

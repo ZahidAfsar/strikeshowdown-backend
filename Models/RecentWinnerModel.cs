@@ -8,6 +8,7 @@ namespace strikeshowdown_backend.Models
     public class RecentWinnerModel
     {
         public int ID { get; set; }
+        public int UserID { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? Location { get; set; }

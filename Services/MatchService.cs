@@ -45,21 +45,21 @@ namespace strikeshowdown_backend.Services
             newMatch.Style = foundUser.Style;
             newMatch.Streak = foundUser.Streak;
 
-//         if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
-// {
-//     foreach (var userId in MatchItem.InvitedUserIds)
-//     {
-//         var invitedUser = GetUserByUsernameOrEmail(userId);
-//         if (invitedUser != null)
-//         {
-//             var invitedUserDTO = new UseridDTO
-//             {
-//                 UserId = invitedUser.ID
-//             };
-//             newMatch.InvitedUsers.Add(invitedUserDTO);
-//         }
-//     }
-// }
+            //         if (MatchItem.InvitedUserIds != null && MatchItem.InvitedUserIds.Any())
+            // {
+            //     foreach (var userId in MatchItem.InvitedUserIds)
+            //     {
+            //         var invitedUser = GetUserByUsernameOrEmail(userId);
+            //         if (invitedUser != null)
+            //         {
+            //             var invitedUserDTO = new UseridDTO
+            //             {
+            //                 UserId = invitedUser.ID
+            //             };
+            //             newMatch.InvitedUsers.Add(invitedUserDTO);
+            //         }
+            //     }
+            // }
             _context.Add(newMatch);
             return _context.SaveChanges() != 0;
         }
@@ -96,7 +96,7 @@ namespace strikeshowdown_backend.Services
         }
         public IEnumerable<MatchItemModel> GetPublicMatchesByState(string state)
         {
-            return _context.MatchInfo.Where(item => item.State == state);
+            return _context.MatchInfo.Where(item => item.State == state && item.IsFinished == false);
         }
     }
 }
