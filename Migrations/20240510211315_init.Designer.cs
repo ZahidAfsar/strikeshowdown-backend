@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509223711_init")]
+    [Migration("20240510211315_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -148,6 +148,9 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Style")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
