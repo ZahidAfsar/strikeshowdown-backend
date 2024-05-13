@@ -52,16 +52,25 @@ namespace strikeshowdown_backend.Controllers
         public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer){
             return _data.GetSecurity(UsernameOrEmail, SecurityQuestion, SecurityAnswer);
         }
+        
+        [HttpGet]
+        [Route("GetUserByUsernameOrEmail/{usernameOrEmail}")]
+        public UserWithoutSaltHashDTO GetUserByUsername(string usernameOrEmail){
+            return _data.GetPublicUserInfo(usernameOrEmail);
+        }
+
+        [HttpGet]
+        [Route("GetUsersByState/{state}")]
+        public IEnumerable<UserModel> GetUsersByState(string state){
+            return _data.GetAllUsersByState(state);
+        }
+
         // DeleteUser Endpoint
         [HttpDelete]
         [Route("DeleteUser/{userToDelete}")]
         public bool DeleteUser(string userToDelete){
             return _data.DeleteUser(userToDelete);
         }
-        [HttpGet]
-        [Route("GetUserByUsernameOrEmail/{usernameOrEmail}")]
-        public UserWithoutSaltHashDTO GetUserByUsername(string usernameOrEmail){
-            return _data.GetPublicUserInfo(usernameOrEmail);
-        }
+        
     }
 }

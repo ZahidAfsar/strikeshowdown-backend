@@ -197,6 +197,10 @@ namespace strikeshowdown_backend.Services
             return Result;
         }
 
+        public IEnumerable<UserModel> GetAllUsersByState(string state){
+            return _context.UserInfo.Where(user => user.Location == state);
+        }
+
         public UserModel GetUserByUsername(string username)
         {
             return _context.UserInfo.SingleOrDefault(user => user.Username == username || user.Email == username);
