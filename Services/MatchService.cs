@@ -96,9 +96,8 @@ namespace strikeshowdown_backend.Services
             {
                 match.MatchUsersIDs += id.ToString() + "-";
                 match.CurrentPpl++;
+                _context.Update<MatchItemModel>(match);
             }
-
-            _context.Update<MatchItemModel>(match);
 
             return _context.SaveChanges() != 0;
         }
