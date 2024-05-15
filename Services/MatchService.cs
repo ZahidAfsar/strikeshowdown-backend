@@ -37,6 +37,7 @@ namespace strikeshowdown_backend.Services
             newMatch.Time = MatchItem.Time;
             newMatch.MaxPpl = MatchItem.MaxPpl;
             newMatch.CurrentPpl = MatchItem.CurrentPpl;
+            newMatch.MatchUsersIDs = foundUser.ID + "-";
             newMatch.Description = MatchItem.Description;
             newMatch.IsFinished = MatchItem.IsFinished;
             newMatch.Image = foundUser.ProfileImage;

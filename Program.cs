@@ -9,6 +9,7 @@ builder.Services.AddScoped<MatchService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<RecentWinnerService>();
+builder.Services.AddScoped<NotificationService>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("StrikeShowdown");

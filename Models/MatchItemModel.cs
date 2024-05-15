@@ -17,6 +17,7 @@ namespace strikeshowdown_backend.Models
         public string? Time { get; set; }
         public int? MaxPpl { get; set; }
         public int? CurrentPpl { get; set; }
+        public string MatchUsersIDs { get; set; }
         public string? Description { get; set; }
         public bool? IsFinished { get; set; }
         public string? Publisher { get; set; }
