@@ -34,7 +34,7 @@ namespace strikeshowdown_backend.Services
             var newMatch = new MatchItemModel();
             var foundUser = GetUserByUsernameOrEmail(Publisher);
             newMatch.UserID = foundUser.ID;
-            newMatch.Publisher = Publisher;
+            newMatch.Publisher = foundUser.Username;
             newMatch.Title = MatchItem.Title;
             newMatch.IsVisible = MatchItem.IsVisible;
             newMatch.State = MatchItem.State;
@@ -92,10 +92,13 @@ namespace strikeshowdown_backend.Services
         }
         public bool AddUserToMatch(int id, MatchItemModel match)
         {
-            if (GetUserByID(id) != null)
+            if (GetUserByID(id) != null && match.CurrentPpl < match.MaxPpl)
             {
                 match.MatchUsersIDs += id.ToString() + "-";
+                match.CurrentPpl++;
             }
+
+            _context.Update<MatchItemModel>(match);
 
             return _context.SaveChanges() != 0;
         }
