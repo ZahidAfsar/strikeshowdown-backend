@@ -49,6 +49,7 @@ namespace strikeshowdown_backend.Migrations
                     SenderID = table.Column<int>(type: "int", nullable: false),
                     SenderUsername = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecieverID = table.Column<int>(type: "int", nullable: false),
+                    PostID = table.Column<int>(type: "int", nullable: false),
                     RecieverUsername = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),

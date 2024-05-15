@@ -11,6 +11,7 @@ namespace strikeshowdown_backend.Models.DTO
         public int SenderID {get; set;}
         public string SenderUsername { get; set;}
         public int RecieverID { get; set; }
+        public int PostID { get; set; }
         public string RecieverUsername { get; set; }
         public string Type { get; set; }
         public string Image { get; set; }

@@ -25,9 +25,9 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.ID == id);
         }
 
-        public MatchItemModel GetMatchItemModel(int ID, string publisher)
+        public MatchItemModel GetMatchItemModel(int ID)
         {
-            return _context.MatchInfo.SingleOrDefault(match => match.ID == ID && match.Publisher == publisher);
+            return _context.MatchInfo.SingleOrDefault(match => match.ID == ID);
         }
         public bool CreateMatch(CreateMatchItemDTO MatchItem, string Publisher)
         {

@@ -44,6 +44,9 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
                     b.Property<int>("RecieverID")
                         .HasColumnType("int");
 

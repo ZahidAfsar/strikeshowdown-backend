@@ -36,9 +36,10 @@ namespace strikeshowdown_backend.Services
 
             newNoti.RecieverID = createdNoti.RecieverID;
             newNoti.RecieverUsername = reciever.Username;
-            newNoti.SenderUsername = sender.Username;
-            newNoti.Image = sender.ProfileImage;
             newNoti.SenderID = createdNoti.SenderID;
+            newNoti.SenderUsername = sender.Username;
+            newNoti.PostID = createdNoti.PostID;
+            newNoti.Image = sender.ProfileImage;
             newNoti.Type = createdNoti.Type;
             newNoti.Content = createdNoti.Content;
             newNoti.IsRead = false;

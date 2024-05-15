@@ -45,6 +45,12 @@ namespace strikeshowdown_backend.Controllers
             return _data.GetAllMatchesByUserID(userID);
         }
         
+        [HttpGet]
+        [Route("GetMatchByPostID/{id}")]
+        public MatchItemModel GetMatchByPostID(int id){
+            return _data.GetMatchItemModel(id);
+        }
+        
         [HttpPut]
         [Route("DeleteMatch")]
         public bool DeleteMatch(MatchItemModel match){

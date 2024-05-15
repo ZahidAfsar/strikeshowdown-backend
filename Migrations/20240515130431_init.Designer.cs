@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240515113635_init")]
+    [Migration("20240515130431_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -46,6 +46,9 @@ namespace strikeshowdown_backend.Migrations
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
 
                     b.Property<int>("RecieverID")
                         .HasColumnType("int");
