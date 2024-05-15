@@ -101,5 +101,14 @@ namespace strikeshowdown_backend.Services
 
             return _context.SaveChanges() != 0;
         }
+        public int GetRecentMatchIDByUserID(int id){
+            List<MatchItemModel> matchList = GetAllMatchesByUserID(id).ToList();
+
+            if(matchList.Count != 0){
+                return matchList[matchList.Count - 1].ID;
+            }
+
+            return 0;
+        }
     }
 }
