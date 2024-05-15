@@ -289,6 +289,26 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
+        public IEnumerable<NotificationModel> GetNotificationsByUserID(int id){
+            return _context.NotificationInfo.Where(noti => noti.RecieverID == id || noti.SenderID == id);
+        }
+
+        public bool UpdateNotifications(UserModel user){
+            List<NotificationModel> notiList = GetNotificationsByUserID(user.ID).ToList();
+
+            foreach (NotificationModel noti in notiList){
+                if(noti.SenderID == user.ID){
+                    noti.SenderUsername = user.Username;
+                    noti.Image = user.ProfileImage;
+                } else if (noti.RecieverID == user.ID){
+                    noti.RecieverUsername = user.Username;
+                }
+
+                _context.Update<NotificationModel>(noti);
+            }
+            return _context.SaveChanges() != 0;
+        }
+
         public bool UpdateUser(string username, UserWithoutSaltHashDTO userToUpdate)
         {
             UserModel foundUser = GetUserByUsername(username);
@@ -313,6 +333,7 @@ namespace strikeshowdown_backend.Services
             _context.Update<UserModel>(foundUser);
             UpdateUserMatches(foundUser);
             UpdateRecentWinners(foundUser);
+            UpdateNotifications(foundUser);
             return _context.SaveChanges() != 0;
         }
 

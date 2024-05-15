@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using strikeshowdown_backend.Models;
 using strikeshowdown_backend.Models.DTO;
 using strikeshowdown_backend.Services.Context;
 
@@ -15,6 +16,10 @@ namespace strikeshowdown_backend.Services
             _context = context;
         }
 
+        public UserModel GetUserByID(int id ){
+            return _context.UserInfo.SingleOrDefault(user => user.ID == id);
+        }
+
         public NotificationModel GetNotifcationByID(int id){
             return _context.NotificationInfo.SingleOrDefault(noti => noti.ID == id);
         }
@@ -24,22 +29,29 @@ namespace strikeshowdown_backend.Services
         }
 
         public bool CreateNotification(CreateNotificationDTO createdNoti){
+            UserModel sender = GetUserByID(createdNoti.SenderID);
+            UserModel reciever = GetUserByID(createdNoti.RecieverID);
+
             NotificationModel newNoti = new NotificationModel();
+
             newNoti.RecieverID = createdNoti.RecieverID;
+            newNoti.RecieverUsername = reciever.Username;
+            newNoti.SenderUsername = sender.Username;
+            newNoti.Image = sender.ProfileImage;
             newNoti.SenderID = createdNoti.SenderID;
             newNoti.Type = createdNoti.Type;
             newNoti.Content = createdNoti.Content;
+            newNoti.IsRead = false;
             newNoti.IsDeleted = false;
 
             _context.Add(newNoti);
             return _context.SaveChanges() != 0;
         }
 
-        public bool DeleteNotification(int id){
-            NotificationModel foundNoti = GetNotifcationByID(id);
-            foundNoti.IsDeleted = true;
+        public bool DeleteNotification(NotificationModel noti){
+            noti.IsDeleted = true;
 
-            _context.Update<NotificationModel>(foundNoti);
+            _context.Update<NotificationModel>(noti);
 
             return _context.SaveChanges() != 0;
         }
