@@ -36,5 +36,11 @@ namespace strikeshowdown_backend.Controllers
             return _noti.DeleteNotification(noti);
         }
 
+        [HttpPut]
+        [Route("MakeNotificationRead")]
+        public bool MakeNotificationRead(NotificationModel noti){
+            return _noti.MakeNotificationRead(noti);
+        }
+
     }
 }

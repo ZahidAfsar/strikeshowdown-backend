@@ -56,5 +56,13 @@ namespace strikeshowdown_backend.Services
 
             return _context.SaveChanges() != 0;
         }
+
+        public bool MakeNotificationRead(NotificationModel noti){
+            noti.IsRead = true;
+
+            _context.Update<NotificationModel>(noti);
+
+            return _context.SaveChanges() != 0;
+        }
     }
 }
