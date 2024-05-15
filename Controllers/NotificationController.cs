@@ -19,7 +19,7 @@ namespace strikeshowdown_backend.Controllers
         }
 
         [HttpGet]
-        [Route("GetNotificationsByUserID/id")]
+        [Route("GetNotificationsByUserID/{id}")]
         public IEnumerable<NotificationModel> GetNotificationsByUserID(int id){
             return _noti.GetNotificationsByUserID(id);
         }
