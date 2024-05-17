@@ -68,6 +68,21 @@ namespace strikeshowdown_backend.Services
 
                 _context.Add(newUser);
 
+                NotificationModel newNoti = new NotificationModel();
+
+                newNoti.RecieverID = newUser.ID;
+                newNoti.RecieverUsername = UserToAdd.Username;
+                newNoti.SenderID = newUser.ID;
+                newNoti.SenderUsername = UserToAdd.Username;
+                newNoti.PostID = 0;
+                newNoti.Image = UserToAdd.ProfileImage;
+                newNoti.Type = "Inbox Message";
+                newNoti.Content = "Hi, " + UserToAdd.Username + " welcome to Strike Showdown!";
+                newNoti.IsRead = false;
+                newNoti.IsDeleted = false;
+
+                _context.Add(newNoti);
+
                 result = _context.SaveChanges() != 0;
             }
             return result;
@@ -197,7 +212,8 @@ namespace strikeshowdown_backend.Services
             return Result;
         }
 
-        public IEnumerable<UserModel> GetAllUsersByState(string state){
+        public IEnumerable<UserModel> GetAllUsersByState(string state)
+        {
             return _context.UserInfo.Where(user => user.Location == state);
         }
 
@@ -289,18 +305,24 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public IEnumerable<NotificationModel> GetNotificationsByUserID(int id){
+        public IEnumerable<NotificationModel> GetNotificationsByUserID(int id)
+        {
             return _context.NotificationInfo.Where(noti => noti.RecieverID == id || noti.SenderID == id);
         }
 
-        public bool UpdateNotifications(UserModel user){
+        public bool UpdateNotifications(UserModel user)
+        {
             List<NotificationModel> notiList = GetNotificationsByUserID(user.ID).ToList();
 
-            foreach (NotificationModel noti in notiList){
-                if(noti.SenderID == user.ID){
+            foreach (NotificationModel noti in notiList)
+            {
+                if (noti.SenderID == user.ID)
+                {
                     noti.SenderUsername = user.Username;
                     noti.Image = user.ProfileImage;
-                } else if (noti.RecieverID == user.ID){
+                }
+                else if (noti.RecieverID == user.ID)
+                {
                     noti.RecieverUsername = user.Username;
                 }
 
