@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240515130431_init")]
+    [Migration("20240517175647_init")]
     partial class init
     {
         /// <inheritdoc />
