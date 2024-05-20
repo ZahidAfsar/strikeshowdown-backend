@@ -390,9 +390,7 @@ namespace strikeshowdown_backend.Services
 
             _context.Update<UserModel>(friend);
 
-
             return _context.SaveChanges() != 0;
-
         }
 
 
