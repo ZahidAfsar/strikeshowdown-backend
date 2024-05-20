@@ -17,36 +17,31 @@ namespace strikeshowdown_backend.Controllers
         {
             _data = data;
         }
+
         [HttpPost]
         [Route("Login")]
         public IActionResult Login([FromBody] LoginDTO User){
             return _data.Login(User);
         }
+
         [HttpPost]
         [Route("AddUser")]
         public bool AddUser(CreateAccountDTO UserToAdd){
             return _data.AddUser(UserToAdd);
         }
+
         [HttpPut]
         [Route("UpdateUser/{username}")]
         public bool UpdateUser(string username, UserWithoutSaltHashDTO userToUpdate){
             return _data.UpdateUser(username, userToUpdate);
         }
-        [HttpPut]
-        [Route("UpdateUser/{id}/{username}")]
-        public bool UpdateUser(int id, string username){
-            return _data.UpdateUsername(id, username);
-        }
-        [HttpPut]
-        [Route("UpdateStats/{UsernameOrEmail}/{username}/{Email}/{FullName}/{Pronouns}/{ProfileImage}/{Wins}/{Loses}/{Style}/{Average}/{MainCenter}/{Earnings}")]
-        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Loses, string Style, string Average, string MainCenter, string Earnings, string Location){
-            return _data.UpdateStats(UsernameOrEmail, username, Email, FullName, Pronouns, ProfileImage, Wins, Loses, Style, Average, MainCenter, Earnings, Location);
-        }
+
         [HttpPut]
         [Route("ForgotPassword/{UsernameOrEmail}/{password}")]
         public bool ForgotPassword(string UsernameOrEmail, string password){
             return _data.ForgotPassword(UsernameOrEmail, password);
         }
+        
         [HttpGet]
         [Route("GetSecurity/{UsernameOrEmail}/{SecurityQuestion}/{SecurityAnswer}")]
         public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer){

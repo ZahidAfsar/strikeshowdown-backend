@@ -65,6 +65,8 @@ namespace strikeshowdown_backend.Services
                 newUser.HighGame = UserToAdd.HighGame;
                 newUser.HighSeries = UserToAdd.HighSeries;
                 newUser.Streak = UserToAdd.Streak;
+                newUser.Friends = "";
+                newUser.PendingFriends = "";
 
                 _context.Add(newUser);
 
@@ -368,20 +370,31 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool UpdateUsername(int id, string username)
-        {
-            UserModel foundUser = GetUserById(id);
-
-            bool result = false;
-
-            if (foundUser != null)
-            {
-                foundUser.Username = username;
-                _context.Update<UserModel>(foundUser);
-                result = _context.SaveChanges() != 0;
-            }
-            return result;
+        public bool SendFriendRequest (int userID, int yourID){
+            UserModel foundUser = GetUserById(userID);
+            foundUser.PendingFriends += yourID.ToString() + "-";
+            _context.Update<UserModel>(foundUser);
+            
+            return _context.SaveChanges() != 0;
         }
+
+        public bool AcceptFriendRequest (int userID, int yourID){
+            UserModel you = GetUserById(yourID);
+            UserModel friend = GetUserById(userID);
+
+            you.Friends += userID.ToString() + "-";
+
+            _context.Update<UserModel>(you);
+
+            friend.Friends += yourID.ToString() + "-";
+
+            _context.Update<UserModel>(friend);
+
+
+            return _context.SaveChanges() != 0;
+
+        }
+
 
         public bool ForgotPassword(string UsernameOrEmail, string Password)
         {
@@ -394,31 +407,6 @@ namespace strikeshowdown_backend.Services
             {
                 foundUser.Salt = password.Salt;
                 foundUser.Hash = password.Hash;
-                _context.Update<UserModel>(foundUser);
-                result = _context.SaveChanges() != 0;
-            }
-            return result;
-        }
-
-        public bool UpdateStats(string UsernameOrEmail, string username, string Email, string FullName, string Pronouns, string ProfileImage, int Wins, int Losses, string Style, string Average, string MainCenter, string Earnings, string Location)
-        {
-            UserModel foundUser = GetUserByUsername(UsernameOrEmail);
-
-            bool result = false;
-
-            if (foundUser != null)
-            {
-                foundUser.Location = Location;
-                foundUser.Username = username;
-                foundUser.Email = Email;
-                foundUser.FullName = FullName;
-                foundUser.Pronouns = Pronouns;
-                foundUser.ProfileImage = ProfileImage;
-                foundUser.Wins = Wins;
-                foundUser.Losses = Losses;
-                foundUser.Style = Average;
-                foundUser.MainCenter = MainCenter;
-                foundUser.Earnings = Earnings;
                 _context.Update<UserModel>(foundUser);
                 result = _context.SaveChanges() != 0;
             }
@@ -458,6 +446,7 @@ namespace strikeshowdown_backend.Services
 
             return UserInfo;
         }
+
         public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer)
         {
             bool result = false;
