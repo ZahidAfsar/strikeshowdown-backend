@@ -41,6 +41,23 @@ namespace strikeshowdown_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MatchScoresModels",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    ScoreOne = table.Column<int>(type: "int", nullable: false),
+                    ScoreTwo = table.Column<int>(type: "int", nullable: false),
+                    IsValid = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchScoresModels", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NotificationInfo",
                 columns: table => new
                 {
@@ -122,6 +139,8 @@ namespace strikeshowdown_backend.Migrations
                     Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Friends = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PendingFriends = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Streak = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -135,6 +154,9 @@ namespace strikeshowdown_backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "MatchInfo");
+
+            migrationBuilder.DropTable(
+                name: "MatchScoresModels");
 
             migrationBuilder.DropTable(
                 name: "NotificationInfo");

@@ -258,6 +258,8 @@ namespace strikeshowdown_backend.Services
                 user.HighGame = foundUser.HighGame;
                 user.HighSeries = foundUser.HighSeries;
                 user.Streak = foundUser.Streak;
+                user.Friends = foundUser.Friends;
+                user.PendingFriends = foundUser.PendingFriends;
                 return user;
             }
             return null;

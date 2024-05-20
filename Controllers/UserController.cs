@@ -41,6 +41,24 @@ namespace strikeshowdown_backend.Controllers
         public bool ForgotPassword(string UsernameOrEmail, string password){
             return _data.ForgotPassword(UsernameOrEmail, password);
         }
+
+        [HttpPut]
+        [Route("SendFriendRequest/{userID}/{yourID}")]
+        public bool SendFriendRequest(int userID, int yourID){
+            return _data.SendFriendRequest(userID, yourID);
+        }
+
+        [HttpPut]
+        [Route("AcceptFriendRequest/{userID}/{yourID}")]
+        public bool AcceptFriendRequest(int userID, int yourID){
+            return _data.AcceptFriendRequest(userID, yourID);
+        }
+
+        [HttpPut]
+        [Route("DeclineFriendRequest/{userID}/{yourID}")]
+        public bool DeclineFriendRequest(int userID, int yourID){
+            return _data.DeclineFriendRequest(userID, yourID);
+        }
         
         [HttpGet]
         [Route("GetSecurity/{UsernameOrEmail}/{SecurityQuestion}/{SecurityAnswer}")]

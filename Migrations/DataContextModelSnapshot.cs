@@ -138,6 +138,34 @@ namespace strikeshowdown_backend.Migrations
                     b.ToTable("MatchInfo");
                 });
 
+            modelBuilder.Entity("strikeshowdown_backend.Models.MatchScoresModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScoreOne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScoreTwo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MatchScoresModels");
+                });
+
             modelBuilder.Entity("strikeshowdown_backend.Models.RecentWinnerModel", b =>
                 {
                     b.Property<int>("ID")
@@ -231,6 +259,10 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Friends")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -253,6 +285,10 @@ namespace strikeshowdown_backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MainCenter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PendingFriends")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
