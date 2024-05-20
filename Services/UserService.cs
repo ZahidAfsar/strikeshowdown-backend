@@ -384,6 +384,16 @@ namespace strikeshowdown_backend.Services
 
             you.Friends += userID.ToString() + "-";
 
+            List<string> pendList = you.PendingFriends.Split('-').ToList();
+
+            for(int i = 0; i < pendList.Count; i++){
+                if(pendList[i] == userID.ToString()){
+                    pendList.Remove(pendList[i]);
+                }
+            }
+
+            you.PendingFriends = string.Join("-", pendList);
+
             _context.Update<UserModel>(you);
 
             friend.Friends += yourID.ToString() + "-";
@@ -393,6 +403,23 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
+        public bool DeclineFriendRequest (int userID, int yourID){
+            UserModel you = GetUserById(yourID);
+
+            List<string> pendList = you.PendingFriends.Split('-').ToList();
+
+            for(int i = 0; i < pendList.Count; i++){
+                if(pendList[i] == userID.ToString()){
+                    pendList.Remove(pendList[i]);
+                }
+            }
+
+            you.PendingFriends = string.Join("-", pendList);
+
+            _context.Update<UserModel>(you);
+
+            return _context.SaveChanges() != 0;
+        }
 
         public bool ForgotPassword(string UsernameOrEmail, string Password)
         {
