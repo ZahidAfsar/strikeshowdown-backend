@@ -68,24 +68,33 @@ namespace strikeshowdown_backend.Services
 
                 _context.Add(newUser);
 
-                NotificationModel newNoti = new NotificationModel();
+                result = _context.SaveChanges() != 0;
+
+                CreateWelcomeNotification(UserToAdd.Username);
+            }
+            return result;
+        }
+
+        public bool CreateWelcomeNotification(string username){
+
+            UserModel newUser = GetUserByUsername(username);
+
+            NotificationModel newNoti = new NotificationModel();
 
                 newNoti.RecieverID = newUser.ID;
-                newNoti.RecieverUsername = UserToAdd.Username;
+                newNoti.RecieverUsername = newUser.Username;
                 newNoti.SenderID = newUser.ID;
-                newNoti.SenderUsername = UserToAdd.Username;
+                newNoti.SenderUsername = newUser.Username;
                 newNoti.PostID = 0;
-                newNoti.Image = UserToAdd.ProfileImage;
+                newNoti.Image = newUser.ProfileImage;
                 newNoti.Type = "Inbox Message";
-                newNoti.Content = "Hi, " + UserToAdd.Username + " welcome to Strike Showdown!";
+                newNoti.Content = "Hi, " + newUser.Username + " welcome to Strike Showdown!";
                 newNoti.IsRead = false;
                 newNoti.IsDeleted = false;
 
                 _context.Add(newNoti);
 
-                result = _context.SaveChanges() != 0;
-            }
-            return result;
+                return _context.SaveChanges() != 0;
         }
 
         public PasswordDTO HashPassword(string password)
