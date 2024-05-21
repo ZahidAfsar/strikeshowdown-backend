@@ -477,9 +477,11 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.ID == id);
         }
 
-        public string GetUsernameByID(int id){
+        public UsernameDTO GetUsernameByID(int id){
             UserModel foundUser = GetUserById(id);
-            return foundUser.Username;
+            UsernameDTO dto = new UsernameDTO();
+            dto.Username = foundUser.Username;
+            return dto;
         }   
 
         public bool DeleteUser(string userToDelete)

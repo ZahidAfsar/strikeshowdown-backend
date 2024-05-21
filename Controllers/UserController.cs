@@ -95,12 +95,13 @@ namespace strikeshowdown_backend.Controllers
             return _data.GetAllUsersByState(state);
         }
 
-        [HttpGet]
+         [HttpGet]
         [Route("GetUsernameByID/{id}")]
-        public string GetUsernameByID(int id)
+        public UsernameDTO GetUsernameByID(int id)
         {
             return _data.GetUsernameByID(id);
         }
+
 
         // DeleteUser Endpoint
         [HttpDelete]
