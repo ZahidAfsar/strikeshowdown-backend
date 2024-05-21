@@ -59,6 +59,12 @@ namespace strikeshowdown_backend.Controllers
         public bool DeclineFriendRequest(int userID, int yourID){
             return _data.DeclineFriendRequest(userID, yourID);
         }
+
+        [HttpPut]
+        [Route("RemoveFriend/{userID}/{yourID}")]
+        public bool RemoveFriend(int userID, int yourID){
+            return _data.RemoveFriend(userID, yourID);
+        }
         
         [HttpGet]
         [Route("GetSecurity/{UsernameOrEmail}/{SecurityQuestion}/{SecurityAnswer}")]

@@ -423,6 +423,38 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
+        public bool RemoveFriend (int userID, int yourID){
+            UserModel you = GetUserById(yourID);
+            UserModel friend = GetUserById(userID);
+
+            List<string> friendList = you.Friends.Split('-').ToList();
+
+            for(int i = 0; i < friendList.Count; i++){
+                if(friendList[i] == userID.ToString()){
+                    friendList.Remove(friendList[i]);
+                }
+            }
+
+            you.Friends = string.Join("-", friendList);
+
+            _context.Update<UserModel>(you);
+
+
+            List<string> friendListTwo = friend.Friends.Split('-').ToList();
+
+            for(int i = 0; i < friendListTwo.Count; i++){
+                if(friendListTwo[i] == yourID.ToString()){
+                    friendListTwo.Remove(friendListTwo[i]);
+                }
+            }
+
+            friend.Friends = string.Join("-", friendListTwo);
+
+            _context.Update<UserModel>(friend);
+
+            return _context.SaveChanges() != 0;
+        }
+
         public bool ForgotPassword(string UsernameOrEmail, string Password)
         {
             UserModel foundUser = GetUserByUsername(UsernameOrEmail);
