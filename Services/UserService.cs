@@ -88,7 +88,7 @@ namespace strikeshowdown_backend.Services
                 newNoti.SenderID = newUser.ID;
                 newNoti.SenderUsername = newUser.Username;
                 newNoti.PostID = 0;
-                newNoti.Image = newUser.ProfileImage;
+                newNoti.Image = "/images/Strike Showdown Logo.png";
                 newNoti.Type = "Inbox Message";
                 newNoti.Content = "Hi, " + newUser.Username + " welcome to Strike Showdown!";
                 newNoti.IsRead = false;
