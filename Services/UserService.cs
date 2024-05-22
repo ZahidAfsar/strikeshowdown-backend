@@ -477,6 +477,34 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.ID == id);
         }
 
+        public UserWithoutSaltHashDTO GetUserWithoutSaltHashByID(int id){
+            UserModel foundUser = GetUserById(id);
+            UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
+
+            user.ID = foundUser.ID;
+            user.Username = foundUser.Username;
+            user.Email = foundUser.Email;
+            user.Location = foundUser.Location;
+            user.SecurityQuestion = foundUser.SecurityQuestion;
+            user.SecurityQuestionTwo = foundUser.SecurityQuestionTwo;
+            user.SecurityQuestionThree = foundUser.SecurityQuestionThree;
+            user.FullName = foundUser.FullName;
+            user.ProfileImage = foundUser.ProfileImage;
+            user.Pronouns = foundUser.Pronouns;
+            user.Wins = foundUser.Wins;
+            user.Losses = foundUser.Losses;
+            user.Style = foundUser.Style;
+            user.MainCenter = foundUser.MainCenter;
+            user.Average = foundUser.Average;
+            user.Earnings = foundUser.HighGame;
+            user.HighGame = foundUser.HighGame;
+            user.HighSeries = foundUser.HighSeries;
+            user.Friends = foundUser.Friends;
+            user.PendingFriends = foundUser.PendingFriends;
+            user.Streak = foundUser.Streak;
+            return user;
+        }
+
         public UsernameDTO GetUsernameByID(int id){
             UserModel foundUser = GetUserById(id);
             UsernameDTO dto = new UsernameDTO();
