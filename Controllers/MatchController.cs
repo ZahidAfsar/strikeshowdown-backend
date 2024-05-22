@@ -74,5 +74,11 @@ namespace strikeshowdown_backend.Controllers
         public bool AddUserToMatch(int userID, MatchItemModel match){
             return _data.AddUserToMatch(userID, match);
         }
+
+        [HttpPut]
+        [Route("RemoveUserFromMatch/{userID}")]
+        public bool RemoveUserFromMatch(int userID, MatchItemModel match){
+            return _data.RemoveUserFromMatch(userID, match);
+        }
     }
 }

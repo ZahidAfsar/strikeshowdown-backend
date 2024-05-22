@@ -90,12 +90,29 @@ namespace strikeshowdown_backend.Services
         {
             return _context.MatchInfo.Where(item => item.State == state && item.IsFinished == false);
         }
-        public bool AddUserToMatch(int id, MatchItemModel match)
+        public bool AddUserToMatch(int userID, MatchItemModel match)
         {
-            if (GetUserByID(id) != null && match.CurrentPpl < match.MaxPpl)
+            if (GetUserByID(userID) != null && match.CurrentPpl < match.MaxPpl)
             {
-                match.MatchUsersIDs += id.ToString() + "-";
+                match.MatchUsersIDs += userID.ToString() + "-";
                 match.CurrentPpl++;
+                _context.Update<MatchItemModel>(match);
+            }
+
+            return _context.SaveChanges() != 0;
+        }
+
+        public bool RemoveUserFromMatch(int userID, MatchItemModel match){
+            if (GetUserByID(userID) != null)
+            {
+                List<string> matchUsers = match.MatchUsersIDs.Split('-').ToList();
+                foreach(string id in matchUsers){
+                    if(Int32.Parse(id) == userID){
+                        matchUsers.Remove(id);
+                    }
+                }
+                match.CurrentPpl--;
+                match.MatchUsersIDs = string.Join('-', matchUsers);
                 _context.Update<MatchItemModel>(match);
             }
 
