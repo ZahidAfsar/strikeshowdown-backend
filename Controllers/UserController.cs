@@ -109,6 +109,11 @@ namespace strikeshowdown_backend.Controllers
             return _data.GetUserWithoutSaltHashByID(id);
         }
 
+        [HttpGet]
+        [Route("GetAllFriends/{id}")]
+        public List<UserWithoutSaltHashDTO> GetAllFriends(int id){
+            return _data.GetAllFriends(id);
+        }
 
         // DeleteUser Endpoint
         [HttpDelete]
