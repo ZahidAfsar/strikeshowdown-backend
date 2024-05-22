@@ -77,26 +77,27 @@ namespace strikeshowdown_backend.Services
             return result;
         }
 
-        public bool CreateWelcomeNotification(string username){
+        public bool CreateWelcomeNotification(string username)
+        {
 
             UserModel newUser = GetUserByUsername(username);
 
             NotificationModel newNoti = new NotificationModel();
 
-                newNoti.RecieverID = newUser.ID;
-                newNoti.RecieverUsername = newUser.Username;
-                newNoti.SenderID = newUser.ID;
-                newNoti.SenderUsername = newUser.Username;
-                newNoti.PostID = 0;
-                newNoti.Image = "/images/Strike Showdown Logo.png";
-                newNoti.Type = "Inbox Message";
-                newNoti.Content = "Hi, " + newUser.Username + " welcome to Strike Showdown!";
-                newNoti.IsRead = false;
-                newNoti.IsDeleted = false;
+            newNoti.RecieverID = newUser.ID;
+            newNoti.RecieverUsername = newUser.Username;
+            newNoti.SenderID = newUser.ID;
+            newNoti.SenderUsername = newUser.Username;
+            newNoti.PostID = 0;
+            newNoti.Image = "/images/Strike Showdown Logo.png";
+            newNoti.Type = "Inbox Message";
+            newNoti.Content = "Hi, " + newUser.Username + " welcome to Strike Showdown!";
+            newNoti.IsRead = false;
+            newNoti.IsDeleted = false;
 
-                _context.Add(newNoti);
+            _context.Add(newNoti);
 
-                return _context.SaveChanges() != 0;
+            return _context.SaveChanges() != 0;
         }
 
         public PasswordDTO HashPassword(string password)
@@ -372,15 +373,17 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool SendFriendRequest (int userID, int yourID){
+        public bool SendFriendRequest(int userID, int yourID)
+        {
             UserModel foundUser = GetUserById(userID);
             foundUser.PendingFriends += yourID.ToString() + "-";
             _context.Update<UserModel>(foundUser);
-            
+
             return _context.SaveChanges() != 0;
         }
 
-        public bool AcceptFriendRequest (int userID, int yourID){
+        public bool AcceptFriendRequest(int userID, int yourID)
+        {
             UserModel you = GetUserById(yourID);
             UserModel friend = GetUserById(userID);
 
@@ -388,8 +391,10 @@ namespace strikeshowdown_backend.Services
 
             List<string> pendList = you.PendingFriends.Split('-').ToList();
 
-            for(int i = 0; i < pendList.Count; i++){
-                if(pendList[i] == userID.ToString()){
+            for (int i = 0; i < pendList.Count; i++)
+            {
+                if (pendList[i] == userID.ToString())
+                {
                     pendList.Remove(pendList[i]);
                 }
             }
@@ -405,13 +410,16 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool DeclineFriendRequest (int userID, int yourID){
+        public bool DeclineFriendRequest(int userID, int yourID)
+        {
             UserModel you = GetUserById(yourID);
 
             List<string> pendList = you.PendingFriends.Split('-').ToList();
 
-            for(int i = 0; i < pendList.Count; i++){
-                if(pendList[i] == userID.ToString()){
+            for (int i = 0; i < pendList.Count; i++)
+            {
+                if (pendList[i] == userID.ToString())
+                {
                     pendList.Remove(pendList[i]);
                 }
             }
@@ -423,14 +431,17 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool RemoveFriend (int userID, int yourID){
+        public bool RemoveFriend(int userID, int yourID)
+        {
             UserModel you = GetUserById(yourID);
             UserModel friend = GetUserById(userID);
 
             List<string> friendList = you.Friends.Split('-').ToList();
 
-            for(int i = 0; i < friendList.Count; i++){
-                if(friendList[i] == userID.ToString()){
+            for (int i = 0; i < friendList.Count; i++)
+            {
+                if (friendList[i] == userID.ToString())
+                {
                     friendList.Remove(friendList[i]);
                 }
             }
@@ -442,8 +453,10 @@ namespace strikeshowdown_backend.Services
 
             List<string> friendListTwo = friend.Friends.Split('-').ToList();
 
-            for(int i = 0; i < friendListTwo.Count; i++){
-                if(friendListTwo[i] == yourID.ToString()){
+            for (int i = 0; i < friendListTwo.Count; i++)
+            {
+                if (friendListTwo[i] == yourID.ToString())
+                {
                     friendListTwo.Remove(friendListTwo[i]);
                 }
             }
@@ -477,7 +490,8 @@ namespace strikeshowdown_backend.Services
             return _context.UserInfo.SingleOrDefault(user => user.ID == id);
         }
 
-        public UserWithoutSaltHashDTO GetUserWithoutSaltHashByID(int id){
+        public UserWithoutSaltHashDTO GetUserWithoutSaltHashByID(int id)
+        {
             UserModel foundUser = GetUserById(id);
             UserWithoutSaltHashDTO user = new UserWithoutSaltHashDTO();
 
@@ -505,12 +519,31 @@ namespace strikeshowdown_backend.Services
             return user;
         }
 
-        public UsernameDTO GetUsernameByID(int id){
+        public List<UserWithoutSaltHashDTO> GetAllFriends(int id)
+        {
+            UserModel foundUser = GetUserById(id);
+            string[] friendIDs = foundUser.Friends.Split('-');
+            List<UserWithoutSaltHashDTO> friends = new List<UserWithoutSaltHashDTO>();
+
+            foreach (string f in friendIDs)
+            {
+                if (f != "")
+                {
+                    UserWithoutSaltHashDTO user = GetUserWithoutSaltHashByID(Int32.Parse(f));
+                    friends.Add(user);
+                }
+            }
+
+            return friends;
+        }
+
+        public UsernameDTO GetUsernameByID(int id)
+        {
             UserModel foundUser = GetUserById(id);
             UsernameDTO dto = new UsernameDTO();
             dto.Username = foundUser.Username;
             return dto;
-        }   
+        }
 
         public bool DeleteUser(string userToDelete)
         {
