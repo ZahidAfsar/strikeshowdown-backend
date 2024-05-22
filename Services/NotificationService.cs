@@ -49,6 +49,10 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
+        public NotificationModel GetFriendRequestNotification(int yourID, int userID){
+            return _context.NotificationInfo.SingleOrDefault(noti => noti.Type == "Inbox FriendRequest" && noti.SenderID == userID && noti.RecieverID == yourID);
+        }
+
         public bool DeleteNotification(NotificationModel noti){
             noti.IsDeleted = true;
 

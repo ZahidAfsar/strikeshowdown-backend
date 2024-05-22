@@ -24,6 +24,12 @@ namespace strikeshowdown_backend.Controllers
             return _noti.GetNotificationsByUserID(id);
         }
 
+        [HttpGet]
+        [Route("GetFriendRequestNotification/{yourID}/{userID}")]
+        public NotificationModel GetFriendRequestNotification(int yourID, int userID){
+            return _noti.GetFriendRequestNotification(yourID, userID);
+        }
+
         [HttpPost]
         [Route("CreateNotification")]
         public bool CreateNotification(CreateNotificationDTO noti){
