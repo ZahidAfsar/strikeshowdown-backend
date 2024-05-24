@@ -110,7 +110,7 @@ namespace strikeshowdown_backend.Services
                 List<string> newMatchUsers = new List<string>();
 
                 foreach (string id in matchUsers){
-                    if(Int32.Parse(id) == userID){
+                    if(id.Trim() !="" && Int32.Parse(id) == userID){
                         newMatchUsers.Add(id);
                     }
                 }
