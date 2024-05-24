@@ -22,6 +22,22 @@ namespace strikeshowdown_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("strikeshowdown_backend.Models.ChatroomModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ChatroomName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Chatrooms");
+                });
+
             modelBuilder.Entity("strikeshowdown_backend.Models.DTO.NotificationModel", b =>
                 {
                     b.Property<int>("ID")
@@ -79,6 +95,9 @@ namespace strikeshowdown_backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Average")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ChallengeLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CurrentPpl")
@@ -164,6 +183,33 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("MatchScoresModels");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.MessageModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("ChatroomModelID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublisherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ChatroomModelID");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.RecentWinnerModel", b =>
@@ -346,6 +392,20 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserInfo");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.MessageModel", b =>
+                {
+                    b.HasOne("strikeshowdown_backend.Models.ChatroomModel", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatroomModelID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.ChatroomModel", b =>
+                {
+                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }
