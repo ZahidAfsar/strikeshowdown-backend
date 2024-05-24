@@ -107,13 +107,18 @@ namespace strikeshowdown_backend.Services
             if (GetUserByID(userID) != null)
             {
                 List<string> matchUsers = match.MatchUsersIDs.Split('-').ToList();
-                foreach(string id in matchUsers){
+                List<string> newMatchUsers = new List<string>();
+
+                foreach (string id in matchUsers){
+                    newMatchUsers.Add(id);
+                }
+                foreach(string id in newMatchUsers){
                     if(Int32.Parse(id) == userID){
-                        matchUsers.Remove(id);
+                        newMatchUsers.Remove(id);
                     }
                 }
                 match.CurrentPpl--;
-                match.MatchUsersIDs = string.Join('-', matchUsers);
+                match.MatchUsersIDs = string.Join('-', newMatchUsers);
                 _context.Update<MatchItemModel>(match);
             }
 
