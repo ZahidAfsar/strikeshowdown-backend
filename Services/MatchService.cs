@@ -110,15 +110,15 @@ namespace strikeshowdown_backend.Services
                 List<string> newMatchUsers = new List<string>();
 
                 foreach (string id in matchUsers){
-                    newMatchUsers.Add(id);
-                }
-                foreach(string id in newMatchUsers){
                     if(Int32.Parse(id) == userID){
-                        newMatchUsers.Remove(id);
+                        newMatchUsers.Add(id);
                     }
                 }
+                foreach(string id in newMatchUsers){
+                    matchUsers.Remove(id);
+                }
                 match.CurrentPpl--;
-                match.MatchUsersIDs = string.Join('-', newMatchUsers);
+                match.MatchUsersIDs = string.Join('-', matchUsers);
                 _context.Update<MatchItemModel>(match);
             }
 
