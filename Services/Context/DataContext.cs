@@ -10,13 +10,15 @@ namespace strikeshowdown_backend.Services.Context
 {
     public class DataContext : DbContext
     {
-       public DbSet<UserModel> UserInfo { get; set; }
-       public DbSet<MatchItemModel> MatchInfo { get; set; } 
-       public DbSet<RecentWinnerModel> RecentWinnerInfo { get; set; }
-       public DbSet<NotificationModel> NotificationInfo { get; set; }
-       public DbSet<MatchScoresModel> MatchScoresModels { get; set; }
+        public DbSet<UserModel> UserInfo { get; set; }
+        public DbSet<MatchItemModel> MatchInfo { get; set; }
+        public DbSet<RecentWinnerModel> RecentWinnerInfo { get; set; }
+        public DbSet<NotificationModel> NotificationInfo { get; set; }
+        public DbSet<MatchScoresModel> MatchScoresModels { get; set; }
+        public DbSet<ChatroomModel> Chatrooms { get; set; }
+        public DbSet<MessageModel> Messages { get; set; }
 
-       public DataContext(DbContextOptions options) : base(options){}
+        public DataContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
