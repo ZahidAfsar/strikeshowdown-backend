@@ -13,6 +13,7 @@ namespace strikeshowdown_backend.Models
         public bool? IsVisible { get; set; }
         public string? State { get; set; }
         public string? Locations { get; set; }
+        public string? ChallengeLocation { get; set; }
         public string? Date { get; set; }
         public string? Time { get; set; }
         public int? MaxPpl { get; set; }

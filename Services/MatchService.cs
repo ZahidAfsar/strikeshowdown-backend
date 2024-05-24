@@ -51,6 +51,7 @@ namespace strikeshowdown_backend.Services
             newMatch.Average = foundUser.Average;
             newMatch.Style = foundUser.Style;
             newMatch.Streak = foundUser.Streak;
+            newMatch.ChallengeLocation = "";
 
             _context.Add(newMatch);
             return _context.SaveChanges() != 0;
