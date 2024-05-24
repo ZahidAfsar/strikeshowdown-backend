@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240522011543_init")]
+    [Migration("20240524160403_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,22 @@ namespace strikeshowdown_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.ChatroomModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ChatroomName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Chatrooms");
+                });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.DTO.NotificationModel", b =>
                 {
@@ -139,6 +155,33 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("MatchInfo");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.MessageModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("ChatroomModelID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublisherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ChatroomModelID");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.RecentWinnerModel", b =>
@@ -313,6 +356,20 @@ namespace strikeshowdown_backend.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserInfo");
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.MessageModel", b =>
+                {
+                    b.HasOne("strikeshowdown_backend.Models.ChatroomModel", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatroomModelID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("strikeshowdown_backend.Models.ChatroomModel", b =>
+                {
+                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }

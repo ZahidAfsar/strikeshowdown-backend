@@ -14,6 +14,9 @@ namespace strikeshowdown_backend.Services.Context
        public DbSet<MatchItemModel> MatchInfo { get; set; } 
        public DbSet<RecentWinnerModel> RecentWinnerInfo { get; set; }
        public DbSet<NotificationModel> NotificationInfo { get; set; }
+        public DbSet<ChatroomModel> Chatrooms { get; set; }
+        public DbSet<MessageModel> Messages { get; set; }
+
 
        public DataContext(DbContextOptions options) : base(options){}
 
