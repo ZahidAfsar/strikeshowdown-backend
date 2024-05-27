@@ -21,19 +21,25 @@ namespace strikeshowdown_backend.Controllers
 
         [HttpPost]
         [Route("SendMessage/{name}")]
-        public bool SendMessage(MessageDTO message, string name){
-            return _service.AddMessage(message, name);
+        public bool SendMessage(MessageDTO message){
+            return _service.AddMessage(message);
         }
 
         [HttpPost]
-        [Route("CreateChatroom/{name}")]
-        public bool CreateChatroom(string name){
-            return _service.AddChatroom(name);
+        [Route("CreateChatroom/{yourID}/{userID}/{name}")]
+        public bool CreateChatroom(int yourID, int userID, string name){
+            return _service.AddChatroom(yourID, userID, name);
+        }
+
+        [HttpPost]
+        [Route("JoinChatroom/{yourID}/{userID}")]
+        public ChatRoomNameDTO JoinChatroom(int yourID, int userID){
+            return _service.JoinChatRoom(yourID, userID);
         }
 
         [HttpGet]
         [Route("GetMessagesFromChatroom/{name}")]
-        public List<MessageModel> GetMessages(string name){
+        public IEnumerable<MessageModel> GetMessages(string name){
             return _service.GetChatroomMessagesFrom(name);
         }
 

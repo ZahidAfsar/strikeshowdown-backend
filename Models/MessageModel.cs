@@ -10,7 +10,7 @@ namespace strikeshowdown_backend.Models
     {
         public int ID { get; set; }
         public int UserID { get; set; }
-        public int ChatroomModelID { get; set; }
+        public string ChatRoomName { get; set; }
         public string? Message { get; set; }
         public string? PublisherName { get; set; }
 

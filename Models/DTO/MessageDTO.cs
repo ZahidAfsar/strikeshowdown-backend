@@ -9,6 +9,6 @@ namespace strikeshowdown_backend.Models.DTO
     {
         public int UserID { get; set; }
         public string? Message { get; set; }
-        public string? PublisherName { get; set; }
+        public string ChatRoomName { get; set; }
     }
 }

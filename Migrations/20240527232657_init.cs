@@ -16,6 +16,8 @@ namespace strikeshowdown_backend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstUserID = table.Column<int>(type: "int", nullable: false),
+                    SecondUserID = table.Column<int>(type: "int", nullable: false),
                     ChatroomName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -169,9 +171,10 @@ namespace strikeshowdown_backend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    ChatroomModelID = table.Column<int>(type: "int", nullable: false),
+                    ChatRoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChatroomModelID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -180,8 +183,7 @@ namespace strikeshowdown_backend.Migrations
                         name: "FK_Messages_Chatrooms_ChatroomModelID",
                         column: x => x.ChatroomModelID,
                         principalTable: "Chatrooms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(

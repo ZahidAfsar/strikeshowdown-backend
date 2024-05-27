@@ -33,6 +33,12 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("ChatroomName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FirstUserID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondUserID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.ToTable("Chatrooms");
@@ -193,7 +199,11 @@ namespace strikeshowdown_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("ChatroomModelID")
+                    b.Property<string>("ChatRoomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ChatroomModelID")
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
@@ -398,9 +408,7 @@ namespace strikeshowdown_backend.Migrations
                 {
                     b.HasOne("strikeshowdown_backend.Models.ChatroomModel", null)
                         .WithMany("Messages")
-                        .HasForeignKey("ChatroomModelID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ChatroomModelID");
                 });
 
             modelBuilder.Entity("strikeshowdown_backend.Models.ChatroomModel", b =>
