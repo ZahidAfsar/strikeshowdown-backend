@@ -28,7 +28,7 @@ namespace strikeshowdown_backend.Services
 
             if (DoesChatroomExist(message.ChatRoomName))
             {
-                newMessage.ChatRoomName = message.ChatRoomName;
+                newMessage.ChatRoom = message.ChatRoomName;
                 _context.Add(newMessage);
             }
             return _context.SaveChanges() != 0;
@@ -45,7 +45,7 @@ namespace strikeshowdown_backend.Services
             ChatroomModel c = GetChatroomByName(name);
             if (DoesChatroomExist(name))
             {
-                return _context.Messages.Where(m => m.ChatRoomName == c.ChatroomName);
+                return _context.Messages.Where(m => m.ChatRoom == c.ChatroomName);
             }
             else
                 return null;

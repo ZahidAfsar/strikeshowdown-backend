@@ -10,17 +10,11 @@ namespace strikeshowdown_backend.Models
     {
         public int ID { get; set; }
         public int UserID { get; set; }
-        public string ChatRoomName { get; set; }
+        public string? ChatRoom { get; set; }
         public string? Message { get; set; }
         public string? PublisherName { get; set; }
+        public MessageModel(){
 
-        public MessageModel(string m, string p, int userID)
-        {
-            Message = m;
-            PublisherName = p;
-            UserID = userID;
         }
-
-        public MessageModel() {}
     }
 }

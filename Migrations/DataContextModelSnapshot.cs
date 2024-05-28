@@ -199,8 +199,7 @@ namespace strikeshowdown_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("ChatRoomName")
-                        .IsRequired()
+                    b.Property<string>("ChatRoom")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ChatroomModelID")

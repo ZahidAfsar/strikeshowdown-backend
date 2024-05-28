@@ -20,7 +20,7 @@ namespace strikeshowdown_backend.Controllers
         }
 
         [HttpPost]
-        [Route("SendMessage/{name}")]
+        [Route("SendMessage")]
         public bool SendMessage(MessageDTO message){
             return _service.AddMessage(message);
         }
@@ -31,7 +31,7 @@ namespace strikeshowdown_backend.Controllers
             return _service.AddChatroom(yourID, userID, name);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("JoinChatroom/{yourID}/{userID}")]
         public ChatRoomNameDTO JoinChatroom(int yourID, int userID){
             return _service.JoinChatRoom(yourID, userID);

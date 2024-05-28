@@ -171,7 +171,7 @@ namespace strikeshowdown_backend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    ChatRoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChatRoom = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChatroomModelID = table.Column<int>(type: "int", nullable: true)

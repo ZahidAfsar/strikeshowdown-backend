@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240527232657_init")]
+    [Migration("20240527235135_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -202,8 +202,7 @@ namespace strikeshowdown_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("ChatRoomName")
-                        .IsRequired()
+                    b.Property<string>("ChatRoom")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ChatroomModelID")
