@@ -277,6 +277,9 @@ namespace strikeshowdown_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Streak")
+                        .HasColumnType("int");
+
                     b.Property<string>("Style")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

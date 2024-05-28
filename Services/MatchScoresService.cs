@@ -96,6 +96,7 @@ namespace strikeshowdown_backend.Services
             _context.Add(newNoti);
 
             userOne.Wins++;
+            userOne.Streak++;
 
             _context.Update<UserModel>(userOne);
 
@@ -121,6 +122,7 @@ namespace strikeshowdown_backend.Services
             _context.Add(newNoti);
 
             userOne.Losses++;
+            userOne.Streak = 0;
 
             _context.Update<UserModel>(userOne);
 
@@ -197,6 +199,7 @@ namespace strikeshowdown_backend.Services
             newWinner.Earnings = foundUser.Earnings;
             newWinner.HighGame = foundUser.HighGame;
             newWinner.HighSeries = foundUser.HighSeries;
+            newWinner.Streak = foundUser.Streak;
             newWinner.IsDeleted = false;
             newWinner.Date = currentDate.ToString();
             _context.Add(newWinner);

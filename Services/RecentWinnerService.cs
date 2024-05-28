@@ -67,6 +67,7 @@ namespace strikeshowdown_backend.Services
             newWinner.HighGame = foundUser.HighGame;
             newWinner.HighSeries = foundUser.HighSeries;
             newWinner.IsDeleted = false;
+            newWinner.Streak = foundUser.Streak;
             newWinner.Date = currentDate.ToString();
             _context.Add(newWinner);
             return _context.SaveChanges() != 0;

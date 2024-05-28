@@ -116,6 +116,7 @@ namespace strikeshowdown_backend.Migrations
                     Earnings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighGame = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Streak = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

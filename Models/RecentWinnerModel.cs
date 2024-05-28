@@ -23,6 +23,7 @@ namespace strikeshowdown_backend.Models
         public string Earnings { get; set; } = "N/A";
         public string HighGame { get; set; } = "N/A";
         public string HighSeries { get; set; } = "N/A";
+        public int Streak { get; set; } = 0;
         public bool IsDeleted { get; set; }
         public string Date { get; set; }
         public RecentWinnerModel()

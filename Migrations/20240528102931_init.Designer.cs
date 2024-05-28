@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240528065835_init")]
+    [Migration("20240528102931_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -279,6 +279,9 @@ namespace strikeshowdown_backend.Migrations
                     b.Property<string>("Pronouns")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Streak")
+                        .HasColumnType("int");
 
                     b.Property<string>("Style")
                         .IsRequired()
