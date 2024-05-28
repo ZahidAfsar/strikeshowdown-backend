@@ -11,8 +11,10 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<RecentWinnerService>();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<MatchScoresService>();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<ChatroomService>();
+
 
 
 var connectionString = builder.Configuration.GetConnectionString("StrikeShowdown");

@@ -38,7 +38,7 @@ namespace strikeshowdown_backend.Services
             {
                 MatchScoresModel score = matchScores[0];
 
-                if (score.ScoreOne == matchScore.ScoreTwo && score.ScoreTwo == matchScore.ScoreOne)
+                if (score.ScoreOne == matchScore.ScoreTwo && score.ScoreTwo == matchScore.ScoreOne && score.UserID != matchScore.UserID)
                 {
                     _context.Add(matchScore);
                     VerifyMatchScores(matchScore, score);
@@ -46,9 +46,20 @@ namespace strikeshowdown_backend.Services
                     match.IsFinished = true;
                     _context.Update<MatchItemModel>(match);
                 }
+                else if (score.UserID == matchScore.UserID)
+                {
+                    score.IsValid = false;
+                    _context.Update<MatchScoresModel>(score);
+                    _context.Add(matchScore);
+                }
                 else
                 {
                     score.IsValid = false;
+                    _context.Update<MatchScoresModel>(score);
+                    EnterScoreInputsNotification(score, matchScore, matchScore.PostID);
+                    EnterScoreInputsNotification(matchScore, score, matchScore.PostID);
+
+                    return false;
                 }
             }
 
@@ -71,12 +82,38 @@ namespace strikeshowdown_backend.Services
                 CreateWinnerNotification(userTwo, userOne, matchOne.PostID);
                 CreateLoserNotification(userOne, userTwo, matchOne.PostID);
                 return true;
-            } else if (matchOne.ScoreOne == matchOne.ScoreTwo){
+            }
+            else if (matchOne.ScoreOne == matchOne.ScoreTwo)
+            {
                 CreateTieNotification(userTwo, userOne, matchOne.PostID);
                 CreateTieNotification(userOne, userTwo, matchOne.PostID);
             }
 
             return false;
+        }
+
+        public bool EnterScoreInputsNotification(MatchScoresModel matchOne, MatchScoresModel matchTwo, int postID)
+        {
+            UserModel userOne = GetUserByID(matchOne.UserID);
+            UserModel userTwo = GetUserByID(matchTwo.UserID);
+
+            MatchItemModel match = GetMatchItemModel(postID);
+
+            NotificationModel newNoti = new NotificationModel();
+            newNoti.SenderID = 0;
+            newNoti.RecieverID = userOne.ID;
+            newNoti.SenderUsername = "Strike Showdown";
+            newNoti.RecieverUsername = userOne.Username;
+            newNoti.PostID = postID;
+            newNoti.Image = "/images/blankpfp.png";
+            newNoti.Type = "Winner Challenge";
+            newNoti.Content = "The scores in your 1v1 challenge with " + userTwo.Username + ", did not match up. Please re-enter scores again";
+            newNoti.IsRead = false;
+            newNoti.IsDeleted = false;
+
+            _context.Add(newNoti);
+
+            return _context.SaveChanges() != 0;
         }
 
         public bool CreateWinnerNotification(UserModel userOne, UserModel userTwo, int postID)
