@@ -12,7 +12,7 @@ using strikeshowdown_backend.Services.Context;
 namespace strikeshowdown_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240527235135_init")]
+    [Migration("20240528065835_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -307,6 +307,10 @@ namespace strikeshowdown_backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Average")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DirectMessages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

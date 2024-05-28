@@ -74,6 +74,12 @@ namespace strikeshowdown_backend.Controllers
             return _data.RemoveFriend(userID, yourID);
         }
 
+        [HttpPut]
+        [Route("AddDM/{yourID}/{userID}")]
+        public bool AddDM(int yourID, int userID) {
+            return _data.AddDirectMessage(yourID, userID);
+        }
+
         [HttpGet]
         [Route("GetSecurity/{UsernameOrEmail}/{SecurityQuestion}/{SecurityAnswer}")]
         public bool GetSecurity(string UsernameOrEmail, string SecurityQuestion, string SecurityAnswer)
@@ -113,6 +119,12 @@ namespace strikeshowdown_backend.Controllers
         [Route("GetAllFriends/{id}")]
         public List<UserWithoutSaltHashDTO> GetAllFriends(int id){
             return _data.GetAllFriends(id);
+        }
+
+        [HttpGet]
+        [Route("GetAllDMs/{id}")]
+        public List<UserWithoutSaltHashDTO> GetAllDMs(int id) {
+            return _data.GetAllDirectMessages(id);
         }
 
         // DeleteUser Endpoint

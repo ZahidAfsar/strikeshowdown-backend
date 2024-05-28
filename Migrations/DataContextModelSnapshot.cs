@@ -307,6 +307,10 @@ namespace strikeshowdown_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DirectMessages")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Earnings")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

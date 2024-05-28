@@ -34,6 +34,7 @@ namespace strikeshowdown_backend.Models
         public string HighSeries { get; set; } = "N/A";
         public string Friends { get; set; }
         public string PendingFriends { get; set; }
+        public string DirectMessages { get; set; }
         public int Streak { get; set; } = 0;
 
         public UserModel()

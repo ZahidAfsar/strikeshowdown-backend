@@ -157,6 +157,7 @@ namespace strikeshowdown_backend.Migrations
                     HighSeries = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Friends = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PendingFriends = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DirectMessages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Streak = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

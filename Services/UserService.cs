@@ -410,6 +410,32 @@ namespace strikeshowdown_backend.Services
             return _context.SaveChanges() != 0;
         }
 
+        public bool AddDirectMessage(int yourID, int userID)
+        {
+            UserModel you = GetUserById(yourID);
+            UserModel dm = GetUserById(userID);
+
+            bool IdExist = false;
+
+            string[] dmIDs = you.DirectMessages.Split('-');
+
+            foreach(string d in dmIDs){
+                if (d == userID.ToString()){
+                    IdExist = true;
+                }
+            }
+
+            if(!IdExist){
+                you.DirectMessages += userID.ToString() + "-";
+                dm.DirectMessages += yourID.ToString() + "-";
+            }
+
+            _context.Update<UserModel>(you);
+            _context.Update<UserModel>(dm);
+            
+            return _context.SaveChanges() != 0;
+        }
+
         public bool DeclineFriendRequest(int userID, int yourID)
         {
             UserModel you = GetUserById(yourID);
@@ -535,6 +561,24 @@ namespace strikeshowdown_backend.Services
             }
 
             return friends;
+        }
+
+        public List<UserWithoutSaltHashDTO> GetAllDirectMessages(int id)
+        {
+            UserModel foundUser = GetUserById(id);
+            string[] dmIDs = foundUser.DirectMessages.Split('-');
+            List<UserWithoutSaltHashDTO> dms = new List<UserWithoutSaltHashDTO>();
+
+            foreach (string d in dmIDs)
+            {
+                if (d != "")
+                {
+                    UserWithoutSaltHashDTO user = GetUserWithoutSaltHashByID(Int32.Parse(d));
+                    dms.Add(user);
+                }
+            }
+
+            return dms;
         }
 
         public UsernameDTO GetUsernameByID(int id)
