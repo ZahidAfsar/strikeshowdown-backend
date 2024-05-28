@@ -42,6 +42,9 @@ namespace strikeshowdown_backend.Services
                 {
                     _context.Add(matchScore);
                     VerifyMatchScores(matchScore, score);
+                    MatchItemModel match = GetMatchItemModel(matchScore.PostID);
+                    match.IsFinished = true;
+                    _context.Update<MatchItemModel>(match);
                 }
                 else
                 {
