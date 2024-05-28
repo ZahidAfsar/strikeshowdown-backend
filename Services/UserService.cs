@@ -67,6 +67,7 @@ namespace strikeshowdown_backend.Services
                 newUser.Streak = UserToAdd.Streak;
                 newUser.Friends = "";
                 newUser.PendingFriends = "";
+                newUser.DirectMessages = "";
 
                 _context.Add(newUser);
 
